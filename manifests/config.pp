@@ -28,7 +28,7 @@ class oxidized::config {
     replace => false,
   }
 
-  $config_yaml = to_yaml($::oxidized::config)
+  $config_yaml = to_yaml($::oxidized::_config)
   file { "${::oxidized::user_home}/.config/oxidized/config":
     ensure  => 'file',
     owner   => $::oxidized::user,
@@ -36,6 +36,20 @@ class oxidized::config {
     mode    => '0644',
     content => "# File managed by Puppet\n${config_yaml}",
     require => Exec['bootstrap-oxidized'],
+  }
+
+  if $::oxidized::source_type == 'csv' {
+    $router_db_contents = $::oxidized::devices.map |$d| {
+      "${d['name']}:${d['model']}"
+    }
+    file { $::oxidized::router_db:
+      ensure  => 'file',
+      owner   => $::oxidized::user,
+      group   => $::oxidized::user_group,
+      mode    => '0644',
+      content => join($router_db_contents, "\n"),
+      require => Exec['bootstrap-oxidized'],
+    }
   }
 
 }

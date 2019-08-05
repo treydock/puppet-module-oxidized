@@ -21,6 +21,11 @@
 #   Oxidize user's home directory path
 # @param config
 #   Oxidize config hash
+# @param source_type
+#   Sets type of source to be used
+# @param devices
+#   Information about devices.
+#   Only used when `source_type` is `csv`
 class oxidized (
   Boolean $manage_repo = true,
   Array $ruby_dependencies = [],
@@ -31,6 +36,11 @@ class oxidized (
   Optional[Integer] $user_group_gid = undef,
   Stdlib::Absolutepath $user_home = '/home/oxidized',
   Hash $config = {},
+  Enum['csv'] $source_type = 'csv',
+  Array[Struct[{
+    'name' => String,
+    'model' => String,
+  }]] $devices = [],
 ) {
 
   if $facts['os']['family'] == 'RedHat' {
@@ -38,6 +48,30 @@ class oxidized (
   } else {
     $bootstrap_command = 'oxidized'
   }
+
+  if $source_type == 'csv' {
+    $router_db = "${user_home}/.config/oxidized/router.db"
+    $default_source_config = {
+      'default' => 'csv',
+      'csv' => {
+        'file'  => $router_db,
+        'delimiter' => '!ruby/regexp /:/',
+        'map' => {
+          'name' => 0,
+          'model' => 1,
+        }
+      }
+    }
+  } else {
+    $default_source_config = {
+      'default' => 'file',
+    }
+  }
+
+  $default_config = {
+    'source' => $default_source_config,
+  }
+  $_config = $default_config + $config
 
   contain 'oxidized::user'
   contain 'oxidized::install'
