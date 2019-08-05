@@ -41,6 +41,19 @@
         "6",
         "7"
       ]
+    },
+    {
+        "operatingsystem": "Debian",
+        "operatingsystemrelease": [
+            "9",
+            "10"
+        ]
+    },
+    {
+        "operatingsystem": "Ubuntu",
+        "operatingsystemrelease": [
+            "18.04"
+        ]
     }
   ],
   "requirements": [
@@ -51,5 +64,5 @@
   ],
   "pdk-version": "1.10.0",
   "template-url": "https://github.com/treydock/pdk-templates.git#master",
-  "template-ref": "heads/master-0-g89da8b1"
+  "template-ref": "heads/master-0-gcfe2325"
 }

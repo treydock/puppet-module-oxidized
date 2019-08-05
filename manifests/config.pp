@@ -14,7 +14,7 @@ class oxidized::config {
       "HOME=${::oxidized::user_home}",
       "OXIDIZED_HOME=${::oxidized::user_home}/.config/oxidized",
     ],
-    path        => '/usr/bin:/bin:/usr/sbin:/sbin',
+    path        => '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin',
     command     => $::oxidized::bootstrap_command,
     creates     => "${::oxidized::user_home}/.config/oxidized/config",
     user        => $::oxidized::user,
