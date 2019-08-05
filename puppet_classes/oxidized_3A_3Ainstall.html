@@ -145,7 +145,7 @@ class oxidized::install {
       before =&gt; Package[&#39;oxidized&#39;],
     }
   } else {
-    $provider = &#39;gem&#39;
+    $provider = &#39;system_gem&#39;
   }
 
   package { &#39;oxidized&#39;:

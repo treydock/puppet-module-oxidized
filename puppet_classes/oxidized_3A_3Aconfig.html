@@ -163,7 +163,7 @@ class oxidized::config {
       &quot;HOME=${::oxidized::user_home}&quot;,
       &quot;OXIDIZED_HOME=${::oxidized::user_home}/.config/oxidized&quot;,
     ],
-    path        =&gt; &#39;/usr/bin:/bin:/usr/sbin:/sbin&#39;,
+    path        =&gt; &#39;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin&#39;,
     command     =&gt; $::oxidized::bootstrap_command,
     creates     =&gt; &quot;${::oxidized::user_home}/.config/oxidized/config&quot;,
     user        =&gt; $::oxidized::user,
