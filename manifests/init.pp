@@ -9,6 +9,8 @@
 #   Ruby dependencies
 # @param install_dependencies
 #   Additional install dependencies
+# @param with_web
+#   Sets if the oxidized web should be installed and configured
 # @param user
 #   Oxidize user
 # @param user_group
@@ -30,6 +32,7 @@ class oxidized (
   Boolean $manage_repo = true,
   Array $ruby_dependencies = [],
   Array $install_dependencies = [],
+  Boolean $with_web = false,
   String $user = 'oxidized',
   String $user_group = 'oxidized',
   Optional[Integer] $user_uid = undef,
@@ -68,8 +71,17 @@ class oxidized (
     }
   }
 
+  if $with_web {
+    $web_package_ensure = 'installed'
+    $rest_config = '127.0.0.1:8888'
+  } else {
+    $web_package_ensure = 'absent'
+    $rest_config = false
+  }
+
   $default_config = {
     'source' => $default_source_config,
+    'rest'   => $rest_config,
   }
   $_config = $default_config + $config
 
