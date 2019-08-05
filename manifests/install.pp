@@ -27,5 +27,9 @@ class oxidized::install {
     ensure   => 'installed',
     provider => $provider,
   }
-
+  package { 'oxidized-web':
+    ensure   => $::oxidized::web_package_ensure,
+    provider => $provider,
+    require  => Package['oxidized'],
+  }
 }
