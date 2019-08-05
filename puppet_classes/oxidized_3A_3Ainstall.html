@@ -120,7 +120,11 @@
 28
 29
 30
-31</pre>
+31
+32
+33
+34
+35</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/install.pp', line 3</span>
@@ -152,7 +156,11 @@ class oxidized::install {
     ensure   =&gt; &#39;installed&#39;,
     provider =&gt; $provider,
   }
-
+  package { &#39;oxidized-web&#39;:
+    ensure   =&gt; $::oxidized::web_package_ensure,
+    provider =&gt; $provider,
+    require  =&gt; Package[&#39;oxidized&#39;],
+  }
 }</pre>
       </td>
     </tr>

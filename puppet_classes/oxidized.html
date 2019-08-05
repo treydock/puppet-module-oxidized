@@ -150,6 +150,24 @@
   
     <li>
       
+        <span class='name'>with_web</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Sets if the oxidized web should be installed and configured</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>user</span>
       
       
@@ -306,8 +324,6 @@
         <pre class="lines">
 
 
-29
-30
 31
 32
 33
@@ -366,15 +382,28 @@
 86
 87
 88
-89</pre>
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 29</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 31</span>
 
 class oxidized (
   Boolean $manage_repo = true,
   Array $ruby_dependencies = [],
   Array $install_dependencies = [],
+  Boolean $with_web = false,
   String $user = &#39;oxidized&#39;,
   String $user_group = &#39;oxidized&#39;,
   Optional[Integer] $user_uid = undef,
@@ -413,8 +442,17 @@ class oxidized (
     }
   }
 
+  if $with_web {
+    $web_package_ensure = &#39;installed&#39;
+    $rest_config = &#39;127.0.0.1:8888&#39;
+  } else {
+    $web_package_ensure = &#39;absent&#39;
+    $rest_config = false
+  }
+
   $default_config = {
     &#39;source&#39; =&gt; $default_source_config,
+    &#39;rest&#39;   =&gt; $rest_config,
   }
   $_config = $default_config + $config
 
