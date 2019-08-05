@@ -3,7 +3,10 @@
 
 ---
 fixtures:
-  forge_modules:
-#     stdlib: "puppetlabs/stdlib"
+  repositories:
+    stdlib:
+      repo: https://github.com/puppetlabs/puppetlabs-stdlib.git
+    subscription_manager:
+      repo: https://github.com/waveclaw/puppet-subscription_manager.git
   symlinks:
     oxidized: "#{source_dir}"

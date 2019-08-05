@@ -1,0 +1,16 @@
+---
+oxidized::ruby_dependencies:
+  - rh-ruby23
+  - rh-ruby23-ruby-devel
+oxidized::install_dependencies:
+  - make
+  - cmake
+  - which
+  - sqlite-devel
+  - openssl-devel
+  - libssh2-devel
+  - ruby
+  - gcc
+  - ruby-devel
+  - libicu-devel
+  - gcc-c++

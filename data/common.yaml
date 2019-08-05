@@ -1,1 +1,3 @@
 ---
+oxidized::manage_repo: true
+oxidized::user_home: /home/oxidized
