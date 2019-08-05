@@ -1,4 +1,7 @@
-# oxidized
+# puppet-module-oxidized
+
+[![Puppet Forge](http://img.shields.io/puppetforge/v/treydock/oxidized.svg)](https://forge.puppetlabs.com/treydock/oxidized)
+[![Build Status](https://travis-ci.org/treydock/puppet-module-oxidized.png)](https://travis-ci.org/treydock/puppet-module-oxidized)
 
 #### Table of Contents
 
