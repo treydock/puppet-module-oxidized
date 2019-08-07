@@ -1,0 +1,15 @@
+# File managed by Puppet
+
+[Unit]
+Description=Oxidized - Network Device Configuration Backup Tool
+After=network-online.target multi-user.target
+Wants=network-online.target
+
+[Service]
+ExecStart=<%= scope['oxidized::service_start'] %>
+User=<%= scope['oxidized::user'] %>
+Group=<%= scope['oxidized::user_group'] %>
+KillSignal=SIGKILL
+
+[Install]
+WantedBy=multi-user.target

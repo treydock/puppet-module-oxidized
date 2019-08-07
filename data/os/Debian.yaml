@@ -11,3 +11,4 @@ oxidized::install_dependencies:
   - libicu-dev
   - zlib1g-dev
   - g++
+oxidized::service_start: '/usr/local/bin/oxidized'
