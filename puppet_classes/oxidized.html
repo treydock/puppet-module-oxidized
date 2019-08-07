@@ -314,6 +314,42 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>with_service</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Sets if the oxidized service should be installed and running</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_start</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/usr/local/bin/oxidized&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The command to use to start oxidized service</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 
@@ -324,10 +360,6 @@
         <pre class="lines">
 
 
-31
-32
-33
-34
 35
 36
 37
@@ -394,10 +426,28 @@
 98
 99
 100
-101</pre>
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 31</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 35</span>
 
 class oxidized (
   Boolean $manage_repo = true,
@@ -415,6 +465,8 @@ class oxidized (
     &#39;name&#39; =&gt; String,
     &#39;model&#39; =&gt; String,
   }]] $devices = [],
+  Boolean $with_service = false,
+  String $service_start = &#39;/usr/local/bin/oxidized&#39;,
 ) {
 
   if $facts[&#39;os&#39;][&#39;family&#39;] == &#39;RedHat&#39; {
@@ -450,6 +502,16 @@ class oxidized (
     $rest_config = false
   }
 
+  if $with_service {
+    $service_file_ensure = &#39;present&#39;
+    $service_ensure = &#39;running&#39;
+    $service_enable = true
+  } else {
+    $service_file_ensure = &#39;absent&#39;
+    $service_ensure = &#39;stopped&#39;
+    $service_enable = false
+  }
+
   $default_config = {
     &#39;source&#39; =&gt; $default_source_config,
     &#39;rest&#39;   =&gt; $rest_config,
@@ -459,10 +521,12 @@ class oxidized (
   contain &#39;oxidized::user&#39;
   contain &#39;oxidized::install&#39;
   contain &#39;oxidized::config&#39;
+  contain &#39;oxidized::service&#39;
 
   Class[&#39;oxidized::user&#39;]
   -&gt; Class[&#39;oxidized::install&#39;]
   -&gt; Class[&#39;oxidized::config&#39;]
+  -&gt; Class[&#39;oxidized::service&#39;]
 
   if $manage_repo {
     contain &#39;oxidized::repo&#39;
