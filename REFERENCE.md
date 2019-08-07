@@ -14,6 +14,7 @@ _Private Classes_
 * `oxidized::config`: Manage oxidized configs
 * `oxidized::install`: Manage oxidized packages
 * `oxidized::repo`: Manage repos needed for oxidized
+* `oxidized::service`: Manage oxidized service
 * `oxidized::user`: Manage Oxidzed user
 
 ## Classes
@@ -133,4 +134,20 @@ Information about devices.
 Only used when `source_type` is `csv`
 
 Default value: []
+
+##### `with_service`
+
+Data type: `Boolean`
+
+Sets if the oxidized service should be installed and running
+
+Default value: `false`
+
+##### `service_start`
+
+Data type: `String`
+
+The command to use to start oxidized service
+
+Default value: '/usr/local/bin/oxidized'
 
