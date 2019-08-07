@@ -28,6 +28,10 @@
 # @param devices
 #   Information about devices.
 #   Only used when `source_type` is `csv`
+# @param with_service
+#   Sets if the oxidized service should be installed and running
+# @param service_start
+#   The command to use to start oxidized service
 class oxidized (
   Boolean $manage_repo = true,
   Array $ruby_dependencies = [],
@@ -44,6 +48,8 @@ class oxidized (
     'name' => String,
     'model' => String,
   }]] $devices = [],
+  Boolean $with_service = false,
+  String $service_start = '/usr/local/bin/oxidized',
 ) {
 
   if $facts['os']['family'] == 'RedHat' {
@@ -79,6 +85,16 @@ class oxidized (
     $rest_config = false
   }
 
+  if $with_service {
+    $service_file_ensure = 'present'
+    $service_ensure = 'running'
+    $service_enable = true
+  } else {
+    $service_file_ensure = 'absent'
+    $service_ensure = 'stopped'
+    $service_enable = false
+  }
+
   $default_config = {
     'source' => $default_source_config,
     'rest'   => $rest_config,
@@ -88,10 +104,12 @@ class oxidized (
   contain 'oxidized::user'
   contain 'oxidized::install'
   contain 'oxidized::config'
+  contain 'oxidized::service'
 
   Class['oxidized::user']
   -> Class['oxidized::install']
   -> Class['oxidized::config']
+  -> Class['oxidized::service']
 
   if $manage_repo {
     contain 'oxidized::repo'

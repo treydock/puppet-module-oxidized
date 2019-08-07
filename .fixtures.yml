@@ -8,5 +8,7 @@ fixtures:
       repo: https://github.com/puppetlabs/puppetlabs-stdlib.git
     subscription_manager:
       repo: https://github.com/waveclaw/puppet-subscription_manager.git
+    systemd:
+      repo: https://github.com/camptocamp/puppet-systemd.git
   symlinks:
     oxidized: "#{source_dir}"

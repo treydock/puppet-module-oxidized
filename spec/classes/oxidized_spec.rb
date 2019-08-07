@@ -10,6 +10,9 @@ describe 'oxidized' do
       it { is_expected.to contain_package('oxidized-web').with_ensure('absent') }
       it { is_expected.to contain_file('/home/oxidized/.config/oxidized/config').with_content(%r{^rest: false$}) }
 
+      it { is_expected.to contain_systemd__unit_file('oxidized.service').with_ensure('absent') }
+      it { is_expected.to contain_service('oxidized').with_ensure('stopped') }
+
       context 'when devices defined' do
         let(:params) { { devices: [{ 'name' => 'example', 'model' => 'ios' }] } }
 
@@ -23,6 +26,13 @@ describe 'oxidized' do
         it { is_expected.to compile }
         it { is_expected.to contain_package('oxidized-web').with_ensure('installed') }
         it { is_expected.to contain_file('/home/oxidized/.config/oxidized/config').with_content(%r{^rest: 127.0.0.1:8888$}) }
+      end
+
+      context 'when with_service => true' do
+        let(:params) { { with_service: true } }
+
+        it { is_expected.to contain_systemd__unit_file('oxidized.service').with_ensure('present') }
+        it { is_expected.to contain_service('oxidized').with_ensure('running') }
       end
     end
   end

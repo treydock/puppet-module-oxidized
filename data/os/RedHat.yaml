@@ -14,3 +14,4 @@ oxidized::install_dependencies:
   - ruby-devel
   - libicu-devel
   - gcc-c++
+oxidized::service_start: '/bin/bash -c "/bin/scl enable rh-ruby23 -- oxidized"'
