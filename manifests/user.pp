@@ -24,6 +24,6 @@ class oxidized::user {
     ensure => 'directory',
     owner  => $::oxidized::user,
     group  => $::oxidized::user_group,
-    mode   => '0700',
+    mode   => $::oxidized::user_home_mode,
   }
 }

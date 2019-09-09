@@ -21,8 +21,12 @@
 #   Oxidize user's group GID
 # @param user_home
 #   Oxidize user's home directory path
+# @param user_home_mode
+#   The permissions of oxidized user's home directory
 # @param config
 #   Oxidize config hash
+# @param config_mode
+#   Oxidized config file permission mode
 # @param source_type
 #   Sets type of source to be used
 # @param devices
@@ -44,7 +48,9 @@ class oxidized (
   Optional[Integer] $user_uid = undef,
   Optional[Integer] $user_group_gid = undef,
   Stdlib::Absolutepath $user_home = '/home/oxidized',
+  Stdlib::FileMode $user_home_mode = '0700',
   Hash $config = {},
+  Stdlib::FileMode $config_mode = '0600',
   Enum['csv'] $source_type = 'csv',
   Array[Struct[{
     'name' => String,
