@@ -144,7 +144,10 @@
 52
 53
 54
-55</pre>
+55
+56
+57
+58</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 3</span>
@@ -169,22 +172,24 @@ class oxidized::config {
     user        =&gt; $::oxidized::user,
   }
   -&gt; file { &#39;/etc/oxidized/config&#39;:
-    ensure  =&gt; &#39;file&#39;,
-    owner   =&gt; &#39;root&#39;,
-    group   =&gt; &#39;root&#39;,
-    mode    =&gt; &#39;0644&#39;,
-    source  =&gt; &quot;${::oxidized::user_home}/.config/oxidized/config&quot;,
-    replace =&gt; false,
+    ensure    =&gt; &#39;file&#39;,
+    owner     =&gt; &#39;root&#39;,
+    group     =&gt; &#39;root&#39;,
+    mode      =&gt; &#39;0644&#39;,
+    source    =&gt; &quot;${::oxidized::user_home}/.config/oxidized/config&quot;,
+    show_diff =&gt; $::oxidized::show_diff,
+    replace   =&gt; false,
   }
 
   $config_yaml = to_yaml($::oxidized::_config)
   file { &quot;${::oxidized::user_home}/.config/oxidized/config&quot;:
-    ensure  =&gt; &#39;file&#39;,
-    owner   =&gt; $::oxidized::user,
-    group   =&gt; $::oxidized::user_group,
-    mode    =&gt; &#39;0644&#39;,
-    content =&gt; &quot;# File managed by Puppet\n${config_yaml}&quot;,
-    require =&gt; Exec[&#39;bootstrap-oxidized&#39;],
+    ensure    =&gt; &#39;file&#39;,
+    owner     =&gt; $::oxidized::user,
+    group     =&gt; $::oxidized::user_group,
+    mode      =&gt; &#39;0644&#39;,
+    content   =&gt; &quot;# File managed by Puppet\n${config_yaml}&quot;,
+    show_diff =&gt; $::oxidized::show_diff,
+    require   =&gt; Exec[&#39;bootstrap-oxidized&#39;],
   }
 
   if $::oxidized::source_type == &#39;csv&#39; {
@@ -192,12 +197,13 @@ class oxidized::config {
       &quot;${d[&#39;name&#39;]}:${d[&#39;model&#39;]}&quot;
     }
     file { $::oxidized::router_db:
-      ensure  =&gt; &#39;file&#39;,
-      owner   =&gt; $::oxidized::user,
-      group   =&gt; $::oxidized::user_group,
-      mode    =&gt; &#39;0644&#39;,
-      content =&gt; join($router_db_contents, &quot;\n&quot;),
-      require =&gt; Exec[&#39;bootstrap-oxidized&#39;],
+      ensure    =&gt; &#39;file&#39;,
+      owner     =&gt; $::oxidized::user,
+      group     =&gt; $::oxidized::user_group,
+      mode      =&gt; &#39;0644&#39;,
+      content   =&gt; join($router_db_contents, &quot;\n&quot;),
+      show_diff =&gt; $::oxidized::show_diff,
+      require   =&gt; Exec[&#39;bootstrap-oxidized&#39;],
     }
   }
 

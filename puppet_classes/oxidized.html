@@ -350,6 +350,24 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>show_diff</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Boolean that sets show_diff property for files</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 
@@ -360,8 +378,6 @@
         <pre class="lines">
 
 
-35
-36
 37
 38
 39
@@ -444,10 +460,13 @@
 116
 117
 118
-119</pre>
+119
+120
+121
+122</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 35</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 37</span>
 
 class oxidized (
   Boolean $manage_repo = true,
@@ -467,6 +486,7 @@ class oxidized (
   }]] $devices = [],
   Boolean $with_service = false,
   String $service_start = &#39;/usr/local/bin/oxidized&#39;,
+  Boolean $show_diff = true,
 ) {
 
   if $facts[&#39;os&#39;][&#39;family&#39;] == &#39;RedHat&#39; {
