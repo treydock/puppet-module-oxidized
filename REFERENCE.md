@@ -151,3 +151,11 @@ The command to use to start oxidized service
 
 Default value: '/usr/local/bin/oxidized'
 
+##### `show_diff`
+
+Data type: `Boolean`
+
+Boolean that sets show_diff property for files
+
+Default value: `true`
+
