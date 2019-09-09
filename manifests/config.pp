@@ -20,22 +20,24 @@ class oxidized::config {
     user        => $::oxidized::user,
   }
   -> file { '/etc/oxidized/config':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    source  => "${::oxidized::user_home}/.config/oxidized/config",
-    replace => false,
+    ensure    => 'file',
+    owner     => 'root',
+    group     => 'root',
+    mode      => '0644',
+    source    => "${::oxidized::user_home}/.config/oxidized/config",
+    show_diff => $::oxidized::show_diff,
+    replace   => false,
   }
 
   $config_yaml = to_yaml($::oxidized::_config)
   file { "${::oxidized::user_home}/.config/oxidized/config":
-    ensure  => 'file',
-    owner   => $::oxidized::user,
-    group   => $::oxidized::user_group,
-    mode    => '0644',
-    content => "# File managed by Puppet\n${config_yaml}",
-    require => Exec['bootstrap-oxidized'],
+    ensure    => 'file',
+    owner     => $::oxidized::user,
+    group     => $::oxidized::user_group,
+    mode      => '0644',
+    content   => "# File managed by Puppet\n${config_yaml}",
+    show_diff => $::oxidized::show_diff,
+    require   => Exec['bootstrap-oxidized'],
   }
 
   if $::oxidized::source_type == 'csv' {
@@ -43,12 +45,13 @@ class oxidized::config {
       "${d['name']}:${d['model']}"
     }
     file { $::oxidized::router_db:
-      ensure  => 'file',
-      owner   => $::oxidized::user,
-      group   => $::oxidized::user_group,
-      mode    => '0644',
-      content => join($router_db_contents, "\n"),
-      require => Exec['bootstrap-oxidized'],
+      ensure    => 'file',
+      owner     => $::oxidized::user,
+      group     => $::oxidized::user_group,
+      mode      => '0644',
+      content   => join($router_db_contents, "\n"),
+      show_diff => $::oxidized::show_diff,
+      require   => Exec['bootstrap-oxidized'],
     }
   }
 

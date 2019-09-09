@@ -32,6 +32,8 @@
 #   Sets if the oxidized service should be installed and running
 # @param service_start
 #   The command to use to start oxidized service
+# @param show_diff
+#   Boolean that sets show_diff property for files
 class oxidized (
   Boolean $manage_repo = true,
   Array $ruby_dependencies = [],
@@ -50,6 +52,7 @@ class oxidized (
   }]] $devices = [],
   Boolean $with_service = false,
   String $service_start = '/usr/local/bin/oxidized',
+  Boolean $show_diff = true,
 ) {
 
   if $facts['os']['family'] == 'RedHat' {
