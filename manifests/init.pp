@@ -67,7 +67,7 @@ class oxidized (
       'default' => 'csv',
       'csv' => {
         'file'  => $router_db,
-        'delimiter' => '!ruby/regexp /:/',
+        'delimiter' => ':',
         'map' => {
           'name' => 0,
           'model' => 1,
