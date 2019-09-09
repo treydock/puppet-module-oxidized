@@ -9,10 +9,8 @@
 2. [Setup - The basics of getting started with oxidized](#setup)
     * [What oxidized affects](#what-oxidized-affects)
     * [Setup requirements](#setup-requirements)
-    * [Beginning with oxidized](#beginning-with-oxidized)
 3. [Usage - Configuration options and additional functionality](#usage)
-4. [Limitations - OS compatibility, etc.](#limitations)
-5. [Development - Guide for contributing to the module](#development)
+4. [Reference - Module reference](#reference)
 
 ## Description
 
