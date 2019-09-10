@@ -147,7 +147,7 @@ class oxidized::user {
     ensure =&gt; &#39;directory&#39;,
     owner  =&gt; $::oxidized::user,
     group  =&gt; $::oxidized::user_group,
-    mode   =&gt; &#39;0700&#39;,
+    mode   =&gt; $::oxidized::user_home_mode,
   }
 }</pre>
       </td>

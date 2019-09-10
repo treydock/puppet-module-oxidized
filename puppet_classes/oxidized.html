@@ -258,6 +258,24 @@
   
     <li>
       
+        <span class='name'>user_home_mode</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::FileMode</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;0700&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The permissions of oxidized user&#39;s home directory</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>config</span>
       
       
@@ -270,6 +288,24 @@
         &mdash;
         <div class='inline'>
 <p>Oxidize config hash</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_mode</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::FileMode</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;0600&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Oxidized config file permission mode</p>
 </div>
       
     </li>
@@ -297,10 +333,7 @@
         <span class='name'>devices</span>
       
       
-        <span class='type'>(<tt>Array[Struct[{
-    'name' =&gt; String,
-    'model' =&gt; String,
-  }]]</tt>)</span>
+        <span class='type'>(<tt>Array[Hash]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
@@ -310,6 +343,44 @@
         <div class='inline'>
 <p>Information about devices. Only used when <code>source_type</code> is
 <code>csv</code></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>devices_map</span>
+      
+      
+        <span class='type'>(<tt>Hash[String, Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{&#39;name&#39; =&gt; 0, &#39;model&#39; =&gt; 1}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Map of CSV fields for devices Only used when <code>source_type</code> is
+<code>csv</code></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>devices_vars_map</span>
+      
+      
+        <span class='type'>(<tt>Optional[Hash[String, Integer]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Set <code>vars_map</code> for device CSV configuration Only used when
+<code>source_type</code> is <code>csv</code></p>
 </div>
       
     </li>
@@ -378,16 +449,6 @@
         <pre class="lines">
 
 
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
 47
 48
 49
@@ -463,10 +524,19 @@
 119
 120
 121
-122</pre>
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 37</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 47</span>
 
 class oxidized (
   Boolean $manage_repo = true,
@@ -478,12 +548,13 @@ class oxidized (
   Optional[Integer] $user_uid = undef,
   Optional[Integer] $user_group_gid = undef,
   Stdlib::Absolutepath $user_home = &#39;/home/oxidized&#39;,
+  Stdlib::FileMode $user_home_mode = &#39;0700&#39;,
   Hash $config = {},
+  Stdlib::FileMode $config_mode = &#39;0600&#39;,
   Enum[&#39;csv&#39;] $source_type = &#39;csv&#39;,
-  Array[Struct[{
-    &#39;name&#39; =&gt; String,
-    &#39;model&#39; =&gt; String,
-  }]] $devices = [],
+  Array[Hash] $devices = [],
+  Hash[String, Integer] $devices_map = {&#39;name&#39; =&gt; 0, &#39;model&#39; =&gt; 1},
+  Optional[Hash[String, Integer]] $devices_vars_map = undef,
   Boolean $with_service = false,
   String $service_start = &#39;/usr/local/bin/oxidized&#39;,
   Boolean $show_diff = true,
@@ -499,14 +570,12 @@ class oxidized (
     $router_db = &quot;${user_home}/.config/oxidized/router.db&quot;
     $default_source_config = {
       &#39;default&#39; =&gt; &#39;csv&#39;,
-      &#39;csv&#39; =&gt; {
+      &#39;csv&#39; =&gt; delete_undef_values({
         &#39;file&#39;  =&gt; $router_db,
         &#39;delimiter&#39; =&gt; &#39;:&#39;,
-        &#39;map&#39; =&gt; {
-          &#39;name&#39; =&gt; 0,
-          &#39;model&#39; =&gt; 1,
-        }
-      }
+        &#39;map&#39; =&gt; $devices_map,
+        &#39;vars_map&#39; =&gt; $devices_vars_map,
+      })
     }
   } else {
     $default_source_config = {
