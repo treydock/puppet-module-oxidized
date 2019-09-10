@@ -26,6 +26,7 @@ describe 'oxidized' do
         it { is_expected.to compile }
         it { is_expected.to contain_package('oxidized-web').with_ensure('installed') }
         it { is_expected.to contain_file('/home/oxidized/.config/oxidized/config').with_content(%r{^rest: 127.0.0.1:8888$}) }
+        it { puts catalogue.resource('file', '/home/oxidized/.config/oxidized/config').send(:parameters)[:content] }
       end
 
       context 'when with_service => true' do

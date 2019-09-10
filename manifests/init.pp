@@ -32,6 +32,12 @@
 # @param devices
 #   Information about devices.
 #   Only used when `source_type` is `csv`
+# @param devices_map
+#   Map of CSV fields for devices
+#   Only used when `source_type` is `csv`
+# @param devices_vars_map
+#   Set `vars_map` for device CSV configuration
+#   Only used when `source_type` is `csv`
 # @param with_service
 #   Sets if the oxidized service should be installed and running
 # @param service_start
@@ -52,10 +58,9 @@ class oxidized (
   Hash $config = {},
   Stdlib::FileMode $config_mode = '0600',
   Enum['csv'] $source_type = 'csv',
-  Array[Struct[{
-    'name' => String,
-    'model' => String,
-  }]] $devices = [],
+  Array[Hash] $devices = [],
+  Hash[String, Integer] $devices_map = {'name' => 0, 'model' => 1},
+  Optional[Hash[String, Integer]] $devices_vars_map = undef,
   Boolean $with_service = false,
   String $service_start = '/usr/local/bin/oxidized',
   Boolean $show_diff = true,
@@ -71,14 +76,12 @@ class oxidized (
     $router_db = "${user_home}/.config/oxidized/router.db"
     $default_source_config = {
       'default' => 'csv',
-      'csv' => {
+      'csv' => delete_undef_values({
         'file'  => $router_db,
         'delimiter' => ':',
-        'map' => {
-          'name' => 0,
-          'model' => 1,
-        }
-      }
+        'map' => $devices_map,
+        'vars_map' => $devices_vars_map,
+      })
     }
   } else {
     $default_source_config = {
