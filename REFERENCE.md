@@ -107,6 +107,14 @@ Oxidize user's home directory path
 
 Default value: '/home/oxidized'
 
+##### `user_home_mode`
+
+Data type: `Stdlib::FileMode`
+
+The permissions of oxidized user's home directory
+
+Default value: '0700'
+
 ##### `config`
 
 Data type: `Hash`
@@ -114,6 +122,14 @@ Data type: `Hash`
 Oxidize config hash
 
 Default value: {}
+
+##### `config_mode`
+
+Data type: `Stdlib::FileMode`
+
+Oxidized config file permission mode
+
+Default value: '0600'
 
 ##### `source_type`
 
@@ -125,15 +141,30 @@ Default value: 'csv'
 
 ##### `devices`
 
-Data type: `Array[Struct[{
-    'name' => String,
-    'model' => String,
-  }]]`
+Data type: `Array[Hash]`
 
 Information about devices.
 Only used when `source_type` is `csv`
 
 Default value: []
+
+##### `devices_map`
+
+Data type: `Hash[String, Integer]`
+
+Map of CSV fields for devices
+Only used when `source_type` is `csv`
+
+Default value: {'name' => 0, 'model' => 1}
+
+##### `devices_vars_map`
+
+Data type: `Optional[Hash[String, Integer]]`
+
+Set `vars_map` for device CSV configuration
+Only used when `source_type` is `csv`
+
+Default value: `undef`
 
 ##### `with_service`
 
