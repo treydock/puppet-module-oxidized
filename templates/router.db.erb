@@ -1,0 +1,23 @@
+<%-
+devices = scope['oxidized::devices']
+csv_map = scope['oxidized::csv_map']
+map = csv_map.sort_by { |k,v| v }
+
+rows = []
+devices.each do |device|
+  row = []
+  map.each do |m|
+    if device.key?(m[0])
+      value = device[m[0]]
+    else
+      value = ''
+    end
+    row << value
+  end
+  rows << row
+end
+-%>
+# File managed by Puppet
+<%- rows.each do |row| -%>
+<%= row.join(':')%>
+<%- end -%>
