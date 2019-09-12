@@ -144,10 +144,7 @@
 52
 53
 54
-55
-56
-57
-58</pre>
+55</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 3</span>
@@ -193,15 +190,12 @@ class oxidized::config {
   }
 
   if $::oxidized::source_type == &#39;csv&#39; {
-    $router_db_contents = $::oxidized::devices.map |$d| {
-      &quot;${d[&#39;name&#39;]}:${d[&#39;model&#39;]}&quot;
-    }
     file { $::oxidized::router_db:
       ensure    =&gt; &#39;file&#39;,
       owner     =&gt; $::oxidized::user,
       group     =&gt; $::oxidized::user_group,
       mode      =&gt; $::oxidized::config_mode,
-      content   =&gt; join($router_db_contents, &quot;\n&quot;),
+      content   =&gt; template(&#39;oxidized/router.db.erb&#39;),
       show_diff =&gt; $::oxidized::show_diff,
       require   =&gt; Exec[&#39;bootstrap-oxidized&#39;],
     }

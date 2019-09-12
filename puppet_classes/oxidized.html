@@ -533,7 +533,13 @@
 128
 129
 130
-131</pre>
+131
+132
+133
+134
+135
+136
+137</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 47</span>
@@ -581,6 +587,12 @@ class oxidized (
     $default_source_config = {
       &#39;default&#39; =&gt; &#39;file&#39;,
     }
+  }
+
+  if $devices_vars_map {
+    $csv_map = $devices_map + $devices_vars_map
+  } else {
+    $csv_map = $devices_map
   }
 
   if $with_web {
