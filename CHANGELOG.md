@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v0.6.2](https://github.com/treydock/puppet-module-oxidized/tree/v0.6.2) (2019-09-12)
+
+[Full Changelog](https://github.com/treydock/puppet-module-oxidized/compare/v0.6.1...v0.6.2)
+
+### Fixed
+
+- Fix CSV router.db mapping to take into account mapping parameters [\#10](https://github.com/treydock/puppet-module-oxidized/pull/10) ([treydock](https://github.com/treydock))
+
 ## [v0.6.1](https://github.com/treydock/puppet-module-oxidized/tree/v0.6.1) (2019-09-12)
 
 [Full Changelog](https://github.com/treydock/puppet-module-oxidized/compare/v0.6.0...v0.6.1)
