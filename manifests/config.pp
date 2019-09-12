@@ -21,8 +21,8 @@ class oxidized::config {
   }
   -> file { '/etc/oxidized/config':
     ensure    => 'file',
-    owner     => 'root',
-    group     => 'root',
+    owner     => $::oxidized::user,
+    group     => $::oxidized::user_group,
     mode      => $::oxidized::config_mode,
     source    => "${::oxidized::user_home}/.config/oxidized/config",
     show_diff => $::oxidized::show_diff,
