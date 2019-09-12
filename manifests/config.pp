@@ -41,15 +41,12 @@ class oxidized::config {
   }
 
   if $::oxidized::source_type == 'csv' {
-    $router_db_contents = $::oxidized::devices.map |$d| {
-      "${d['name']}:${d['model']}"
-    }
     file { $::oxidized::router_db:
       ensure    => 'file',
       owner     => $::oxidized::user,
       group     => $::oxidized::user_group,
       mode      => $::oxidized::config_mode,
-      content   => join($router_db_contents, "\n"),
+      content   => template('oxidized/router.db.erb'),
       show_diff => $::oxidized::show_diff,
       require   => Exec['bootstrap-oxidized'],
     }

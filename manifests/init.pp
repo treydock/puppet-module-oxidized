@@ -89,6 +89,12 @@ class oxidized (
     }
   }
 
+  if $devices_vars_map {
+    $csv_map = $devices_map + $devices_vars_map
+  } else {
+    $csv_map = $devices_map
+  }
+
   if $with_web {
     $web_package_ensure = 'installed'
     $rest_config = '127.0.0.1:8888'
