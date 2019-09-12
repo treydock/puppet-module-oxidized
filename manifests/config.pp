@@ -52,4 +52,13 @@ class oxidized::config {
     }
   }
 
+  if $::oxidized::log {
+    file { $::oxidized::log:
+      ensure => 'file',
+      owner  => $::oxidized::user,
+      group  => $::oxidized::user_group,
+      mode   => $::oxidized::log_mode,
+    }
+  }
+
 }

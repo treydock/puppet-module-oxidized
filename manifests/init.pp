@@ -44,6 +44,10 @@
 #   The command to use to start oxidized service
 # @param show_diff
 #   Boolean that sets show_diff property for files
+# @param log
+#   Path to oxidized log file
+# @param log_mode
+#   The permissions of oxidized log file
 class oxidized (
   Boolean $manage_repo = true,
   Array $ruby_dependencies = [],
@@ -64,6 +68,8 @@ class oxidized (
   Boolean $with_service = false,
   String $service_start = '/usr/local/bin/oxidized',
   Boolean $show_diff = true,
+  Optional[String] $log = undef,
+  Stdlib::FileMode $log_mode = '0644',
 ) {
 
   if $facts['os']['family'] == 'RedHat' {
@@ -113,10 +119,11 @@ class oxidized (
     $service_enable = false
   }
 
-  $default_config = {
+  $default_config = delete_undef_values({
     'source' => $default_source_config,
     'rest'   => $rest_config,
-  }
+    'log'    => $log,
+  })
   $_config = $default_config + $config
 
   contain 'oxidized::user'
