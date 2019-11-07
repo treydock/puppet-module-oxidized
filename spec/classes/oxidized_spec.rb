@@ -35,6 +35,13 @@ describe 'oxidized' do
         it { is_expected.to contain_systemd__unit_file('oxidized.service').with_ensure('present') }
         it { is_expected.to contain_service('oxidized').with_ensure('running') }
       end
+
+      context 'when models defined' do
+        let(:params) { { models: { 'ftos' => { 'source' => 'puppet:///dne' } } } }
+
+        it { is_expected.to compile }
+        it { is_expected.to contain_oxidized__model('ftos') }
+      end
     end
   end
 end

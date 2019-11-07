@@ -5,7 +5,7 @@ class oxidized::install {
   ensure_packages($::oxidized::ruby_dependencies, { 'before' => 'Package[oxidized]' })
   ensure_packages($::oxidized::install_dependencies, { 'before' => 'Package[oxidized]' })
 
-  if $facts['os']['family'] == 'RedHat' {
+  if $facts.dig('os', 'family') == 'RedHat' {
     $provider = 'scl_gem'
     file { '/usr/local/bin/scl_gem':
       ensure => 'file',
