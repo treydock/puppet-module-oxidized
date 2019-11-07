@@ -17,6 +17,10 @@ _Private Classes_
 * `oxidized::service`: Manage oxidized service
 * `oxidized::user`: Manage Oxidzed user
 
+**Defined types**
+
+* [`oxidized::model`](#oxidizedmodel): Manage oxidized models
+
 ## Classes
 
 ### oxidized
@@ -189,4 +193,44 @@ Data type: `Boolean`
 Boolean that sets show_diff property for files
 
 Default value: `true`
+
+##### `log`
+
+Data type: `Optional[String]`
+
+Path to oxidized log file
+
+Default value: `undef`
+
+##### `log_mode`
+
+Data type: `Stdlib::FileMode`
+
+The permissions of oxidized log file
+
+Default value: '0644'
+
+##### `models`
+
+Data type: `Hash`
+
+Hash of models passed to oxidized::model
+
+Default value: {}
+
+## Defined types
+
+### oxidized::model
+
+Manage oxidized models
+
+#### Parameters
+
+The following parameters are available in the `oxidized::model` defined type.
+
+##### `source`
+
+Data type: `String`
+
+Source of model
 
