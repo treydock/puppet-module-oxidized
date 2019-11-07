@@ -18,6 +18,7 @@ class oxidized::config {
     command     => $::oxidized::bootstrap_command,
     creates     => "${::oxidized::user_home}/.config/oxidized/config",
     user        => $::oxidized::user,
+    returns     => [0,1],
   }
   -> file { '/etc/oxidized/config':
     ensure    => 'file',
