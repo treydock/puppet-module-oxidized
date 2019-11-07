@@ -439,6 +439,60 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>log</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Path to oxidized log file</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>log_mode</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::FileMode</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;0644&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The permissions of oxidized log file</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>models</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of models passed to oxidized::model</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 
@@ -449,12 +503,6 @@
         <pre class="lines">
 
 
-47
-48
-49
-50
-51
-52
 53
 54
 55
@@ -539,10 +587,24 @@
 134
 135
 136
-137</pre>
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 47</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 53</span>
 
 class oxidized (
   Boolean $manage_repo = true,
@@ -564,9 +626,12 @@ class oxidized (
   Boolean $with_service = false,
   String $service_start = &#39;/usr/local/bin/oxidized&#39;,
   Boolean $show_diff = true,
+  Optional[String] $log = undef,
+  Stdlib::FileMode $log_mode = &#39;0644&#39;,
+  Hash $models = {},
 ) {
 
-  if $facts[&#39;os&#39;][&#39;family&#39;] == &#39;RedHat&#39; {
+  if $facts.dig(&#39;os&#39;, &#39;family&#39;) == &#39;RedHat&#39; {
     $bootstrap_command = &#39;scl enable rh-ruby23 -- oxidized&#39;
   } else {
     $bootstrap_command = &#39;oxidized&#39;
@@ -613,10 +678,11 @@ class oxidized (
     $service_enable = false
   }
 
-  $default_config = {
+  $default_config = delete_undef_values({
     &#39;source&#39; =&gt; $default_source_config,
     &#39;rest&#39;   =&gt; $rest_config,
-  }
+    &#39;log&#39;    =&gt; $log,
+  })
   $_config = $default_config + $config
 
   contain &#39;oxidized::user&#39;
@@ -632,6 +698,10 @@ class oxidized (
   if $manage_repo {
     contain &#39;oxidized::repo&#39;
     Class[&#39;oxidized::repo&#39;] -&gt; Class[&#39;oxidized::install&#39;]
+  }
+
+  $models.each |$name, $model| {
+    ::oxidized::model { $name: * =&gt; $model }
   }
 
 }</pre>
