@@ -48,6 +48,8 @@
 #   Path to oxidized log file
 # @param log_mode
 #   The permissions of oxidized log file
+# @param models
+#   Hash of models passed to oxidized::model
 class oxidized (
   Boolean $manage_repo = true,
   Array $ruby_dependencies = [],
@@ -70,9 +72,10 @@ class oxidized (
   Boolean $show_diff = true,
   Optional[String] $log = undef,
   Stdlib::FileMode $log_mode = '0644',
+  Hash $models = {},
 ) {
 
-  if $facts['os']['family'] == 'RedHat' {
+  if $facts.dig('os', 'family') == 'RedHat' {
     $bootstrap_command = 'scl enable rh-ruby23 -- oxidized'
   } else {
     $bootstrap_command = 'oxidized'
@@ -139,6 +142,10 @@ class oxidized (
   if $manage_repo {
     contain 'oxidized::repo'
     Class['oxidized::repo'] -> Class['oxidized::install']
+  }
+
+  $models.each |$name, $model| {
+    ::oxidized::model { $name: * => $model }
   }
 
 }
