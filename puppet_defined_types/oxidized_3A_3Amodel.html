@@ -139,7 +139,7 @@ define oxidized::model (
 
   include ::oxidized
 
-  $path = &quot;${::oxidized::user_home}/.config/oxidized/${name}.rb&quot;
+  $path = &quot;${::oxidized::user_home}/.config/oxidized/model/${name}.rb&quot;
 
   file { &quot;model-${name}&quot;:
     ensure    =&gt; &#39;file&#39;,
