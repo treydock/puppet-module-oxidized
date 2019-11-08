@@ -11,7 +11,7 @@ define oxidized::model (
 
   include ::oxidized
 
-  $path = "${::oxidized::user_home}/.config/oxidized/${name}.rb"
+  $path = "${::oxidized::user_home}/.config/oxidized/model/${name}.rb"
 
   file { "model-${name}":
     ensure    => 'file',
