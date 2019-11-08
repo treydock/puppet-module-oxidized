@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v0.7.1](https://github.com/treydock/puppet-module-oxidized/tree/v0.7.1) (2019-11-08)
+
+[Full Changelog](https://github.com/treydock/puppet-module-oxidized/compare/v0.7.0...v0.7.1)
+
+### Fixed
+
+- Fix path for model file [\#13](https://github.com/treydock/puppet-module-oxidized/pull/13) ([treydock](https://github.com/treydock))
+
 ## [v0.7.0](https://github.com/treydock/puppet-module-oxidized/tree/v0.7.0) (2019-11-07)
 
 [Full Changelog](https://github.com/treydock/puppet-module-oxidized/compare/v0.6.2...v0.7.0)
