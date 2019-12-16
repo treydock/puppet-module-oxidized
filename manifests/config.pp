@@ -41,6 +41,13 @@ class oxidized::config {
     require   => Exec['bootstrap-oxidized'],
   }
 
+  file { "${::oxidized::user_home}/.config/oxidized/model":
+    ensure => 'directory',
+    owner  => $::oxidized::user,
+    group  => $::oxidized::user_group,
+    mode   => '0755',
+  }
+
   if $::oxidized::source_type == 'csv' {
     file { $::oxidized::router_db:
       ensure    => 'file',
