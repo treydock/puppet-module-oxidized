@@ -154,7 +154,16 @@
 62
 63
 64
-65</pre>
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 3</span>
@@ -198,6 +207,14 @@ class oxidized::config {
     content   =&gt; &quot;# File managed by Puppet\n${config_yaml}&quot;,
     show_diff =&gt; $::oxidized::show_diff,
     require   =&gt; Exec[&#39;bootstrap-oxidized&#39;],
+    notify    =&gt; $oxidized::service_notify,
+  }
+
+  file { &quot;${::oxidized::user_home}/.config/oxidized/model&quot;:
+    ensure =&gt; &#39;directory&#39;,
+    owner  =&gt; $::oxidized::user,
+    group  =&gt; $::oxidized::user_group,
+    mode   =&gt; &#39;0755&#39;,
   }
 
   if $::oxidized::source_type == &#39;csv&#39; {
@@ -209,6 +226,7 @@ class oxidized::config {
       content   =&gt; template(&#39;oxidized/router.db.erb&#39;),
       show_diff =&gt; $::oxidized::show_diff,
       require   =&gt; Exec[&#39;bootstrap-oxidized&#39;],
+      notify    =&gt; $oxidized::service_notify,
     }
   }
 

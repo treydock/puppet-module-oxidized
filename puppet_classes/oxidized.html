@@ -601,7 +601,9 @@
 148
 149
 150
-151</pre>
+151
+152
+153</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 53</span>
@@ -669,10 +671,12 @@ class oxidized (
   }
 
   if $with_service {
+    $service_notify = Service[&#39;oxidized&#39;]
     $service_file_ensure = &#39;present&#39;
     $service_ensure = &#39;running&#39;
     $service_enable = true
   } else {
+    $service_notify = undef
     $service_file_ensure = &#39;absent&#39;
     $service_ensure = &#39;stopped&#39;
     $service_enable = false

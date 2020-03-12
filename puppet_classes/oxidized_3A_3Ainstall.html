@@ -124,7 +124,14 @@
 32
 33
 34
-35</pre>
+35
+36
+37
+38
+39
+40
+41
+42</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/install.pp', line 3</span>
@@ -148,6 +155,13 @@ class oxidized::install {
     $provider = &#39;system_gem&#39;
   }
 
+  # Only necessary until released: https://github.com/ytti/oxidized/pull/2050
+  package { &#39;rugged&#39;:
+    ensure   =&gt; &#39;0.28.4.1&#39;,
+    provider =&gt; $provider,
+    before   =&gt; Package[&#39;oxidized&#39;],
+    require  =&gt; Package[$oxidized::ruby_dependencies + $oxidized::install_dependencies],
+  }
   package { &#39;oxidized&#39;:
     ensure   =&gt; &#39;installed&#39;,
     provider =&gt; $provider,
