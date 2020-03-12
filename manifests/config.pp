@@ -39,6 +39,7 @@ class oxidized::config {
     content   => "# File managed by Puppet\n${config_yaml}",
     show_diff => $::oxidized::show_diff,
     require   => Exec['bootstrap-oxidized'],
+    notify    => $oxidized::service_notify,
   }
 
   file { "${::oxidized::user_home}/.config/oxidized/model":
@@ -57,6 +58,7 @@ class oxidized::config {
       content   => template('oxidized/router.db.erb'),
       show_diff => $::oxidized::show_diff,
       require   => Exec['bootstrap-oxidized'],
+      notify    => $oxidized::service_notify,
     }
   }
 

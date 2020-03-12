@@ -19,6 +19,13 @@ class oxidized::install {
     $provider = 'system_gem'
   }
 
+  # Only necessary until released: https://github.com/ytti/oxidized/pull/2050
+  package { 'rugged':
+    ensure   => '0.28.4.1',
+    provider => $provider,
+    before   => Package['oxidized'],
+    require  => Package[$oxidized::ruby_dependencies + $oxidized::install_dependencies],
+  }
   package { 'oxidized':
     ensure   => 'installed',
     provider => $provider,
