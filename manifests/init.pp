@@ -113,10 +113,12 @@ class oxidized (
   }
 
   if $with_service {
+    $service_notify = Service['oxidized']
     $service_file_ensure = 'present'
     $service_ensure = 'running'
     $service_enable = true
   } else {
+    $service_notify = undef
     $service_file_ensure = 'absent'
     $service_ensure = 'stopped'
     $service_enable = false
