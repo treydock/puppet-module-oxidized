@@ -1,0 +1,15 @@
+---
+oxidized::ruby_dependencies:
+  - ruby
+oxidized::install_dependencies:
+  - redhat-rpm-config
+  - make
+  - cmake
+  - which
+  - sqlite-devel
+  - openssl-devel
+  - gcc
+  - ruby-devel
+  - libicu-devel
+  - gcc-c++
+oxidized::service_start: '/usr/local/bin/oxidized'

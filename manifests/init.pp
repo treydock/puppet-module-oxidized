@@ -76,7 +76,11 @@ class oxidized (
 ) {
 
   if $facts.dig('os', 'family') == 'RedHat' {
-    $bootstrap_command = 'scl enable rh-ruby23 -- oxidized'
+    if versioncmp($::operatingsystemrelease, '8') >= 0 {
+      $bootstrap_command = 'oxidized'
+    } else {
+      $bootstrap_command = 'scl enable rh-ruby23 -- oxidized'
+    }
   } else {
     $bootstrap_command = 'oxidized'
   }
@@ -90,7 +94,7 @@ class oxidized (
         'delimiter' => ':',
         'map' => $devices_map,
         'vars_map' => $devices_vars_map,
-      })
+        })
     }
   } else {
     $default_source_config = {
@@ -128,26 +132,26 @@ class oxidized (
     'source' => $default_source_config,
     'rest'   => $rest_config,
     'log'    => $log,
-  })
-  $_config = $default_config + $config
+    })
+    $_config = $default_config + $config
 
-  contain 'oxidized::user'
-  contain 'oxidized::install'
-  contain 'oxidized::config'
-  contain 'oxidized::service'
+    contain 'oxidized::user'
+    contain 'oxidized::install'
+    contain 'oxidized::config'
+    contain 'oxidized::service'
 
-  Class['oxidized::user']
-  -> Class['oxidized::install']
-  -> Class['oxidized::config']
-  -> Class['oxidized::service']
+    Class['oxidized::user']
+    -> Class['oxidized::install']
+    -> Class['oxidized::config']
+    -> Class['oxidized::service']
 
-  if $manage_repo {
-    contain 'oxidized::repo'
-    Class['oxidized::repo'] -> Class['oxidized::install']
-  }
+    if $manage_repo {
+      contain 'oxidized::repo'
+      Class['oxidized::repo'] -> Class['oxidized::install']
+    }
 
-  $models.each |$name, $model| {
-    ::oxidized::model { $name: * => $model }
-  }
+    $models.each |$name, $model| {
+      ::oxidized::model { $name: * => $model }
+    }
 
 }
