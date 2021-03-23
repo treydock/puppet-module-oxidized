@@ -13,27 +13,38 @@
       "version_requirement": ">= 4.15.0 <8.0.0"
     },
     {
+      "name": "puppetlabs/yumrepo_core",
+      "version_requirement": ">= 1.0.0 <2.0.0"
+    },
+    {
       "name": "camptocamp/systemd",
       "version_requirement": ">= 0.4.0 <4.0.0"
+    },
+    {
+      "name": "puppet/epel",
+      "version_requirement": ">= 3.0.0 <4.0.0"
     }
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "7"
+        "7",
+        "8"
       ]
     },
     {
@@ -58,5 +69,5 @@
   ],
   "pdk-version": "1.17.0",
   "template-url": "https://github.com/treydock/pdk-templates.git#master",
-  "template-ref": "heads/master-0-g1d2967a"
+  "template-ref": "heads/master-0-g4e040ab"
 }
