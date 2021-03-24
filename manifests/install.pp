@@ -7,18 +7,18 @@ class oxidized::install {
 
   if $facts.dig('os', 'family') == 'RedHat' {
     if versioncmp($::operatingsystemrelease, '8') >= 0 {
-       $provider = 'system_gem'
-       # libssh2 is not in repos for RHEL8
-       package{'libssh2':
-         provider => 'rpm',
-         source   => 'http://mirror.city-fan.org/ftp/contrib/libraries/libssh2-1.9.0-7.0.cf.rhel8.x86_64.rpm',
-         ensure   => present
-       }
-       ~> package{'libssh2-devel':
-         provider => 'rpm',
-         source   => 'http://mirror.city-fan.org/ftp/contrib/libraries/libssh2-devel-1.9.0-7.0.cf.rhel8.x86_64.rpm',
-         ensure   => present
-       }
+      $provider = 'system_gem'
+      # libssh2 is not in repos for RHEL8
+      package{'libssh2':
+        ensure   => present,
+        provider => 'rpm',
+        source   => 'http://mirror.city-fan.org/ftp/contrib/libraries/libssh2-1.9.0-7.0.cf.rhel8.x86_64.rpm',
+      }
+      ~> package{'libssh2-devel':
+        ensure   => present,
+        provider => 'rpm',
+        source   => 'http://mirror.city-fan.org/ftp/contrib/libraries/libssh2-devel-1.9.0-7.0.cf.rhel8.x86_64.rpm',
+      }
     }
     else {
       $provider = 'scl_gem'
