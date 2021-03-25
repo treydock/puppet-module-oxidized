@@ -1,15 +1,17 @@
 ---
 oxidized::ruby_dependencies:
-  - ruby
+  - rh-ruby23
+  - rh-ruby23-ruby-devel
 oxidized::install_dependencies:
-  - redhat-rpm-config
   - make
   - cmake
   - which
   - sqlite-devel
   - openssl-devel
+  - libssh2-devel
+  - ruby
   - gcc
   - ruby-devel
   - libicu-devel
   - gcc-c++
-oxidized::service_start: '/usr/local/bin/oxidized'
+oxidized::service_start: '/bin/bash -c "/bin/scl enable rh-ruby23 -- oxidized"'

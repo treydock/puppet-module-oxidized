@@ -6,7 +6,7 @@ class oxidized::install {
   ensure_packages($::oxidized::install_dependencies, { 'before' => 'Package[oxidized]' })
 
   if $facts.dig('os', 'family') == 'RedHat' {
-    if versioncmp($::operatingsystemrelease, '8') >= 0 {
+    if versioncmp($facts['os']['release']['major'], '8') >= 0 {
       $provider = 'system_gem'
       # libssh2 is not in repos for RHEL8
       package{'libssh2':

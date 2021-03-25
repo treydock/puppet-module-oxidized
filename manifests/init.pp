@@ -76,7 +76,7 @@ class oxidized (
 ) {
 
   if $facts.dig('os', 'family') == 'RedHat' {
-    if versioncmp($::operatingsystemrelease, '8') >= 0 {
+    if versioncmp($facts['os']['release']['major'], '8') >= 0 {
       $bootstrap_command = 'oxidized'
     } else {
       $bootstrap_command = 'scl enable rh-ruby23 -- oxidized'
