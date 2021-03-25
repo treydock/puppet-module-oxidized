@@ -2,6 +2,7 @@
 # @api private
 class oxidized::service {
   assert_private()
+
   ::systemd::unit_file { 'oxidized.service':
     ensure  => $::oxidized::service_file_ensure,
     content => template('oxidized/oxidized.service.erb'),
