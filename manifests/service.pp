@@ -3,13 +3,10 @@
 class oxidized::service {
   assert_private()
 
-  if $facts['service_provider'] == 'systemd' {
-    ::systemd::unit_file { 'oxidized.service':
-      ensure  => $::oxidized::service_file_ensure,
-      content => template('oxidized/oxidized.service.erb'),
-      notify  => Service['oxidized'],
-    }
-    Exec['systemctl-daemon-reload'] -> Service['oxidized']
+  ::systemd::unit_file { 'oxidized.service':
+    ensure  => $::oxidized::service_file_ensure,
+    content => template('oxidized/oxidized.service.erb'),
+    notify  => Service['oxidized'],
   }
 
   service { 'oxidized':
