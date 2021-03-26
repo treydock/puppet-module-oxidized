@@ -1,7 +1,7 @@
 # puppet-module-oxidized
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/treydock/oxidized.svg)](https://forge.puppetlabs.com/treydock/oxidized)
-[![Build Status](https://travis-ci.org/treydock/puppet-module-oxidized.png)](https://travis-ci.org/treydock/puppet-module-oxidized)
+[![CI Status](https://github.com/treydock/puppet-module-oxidized/workflows/CI/badge.svg?branch=master)](https://github.com/treydock/puppet-module-oxidized/actions?query=workflow%3ACI)
 
 #### Table of Contents
 
