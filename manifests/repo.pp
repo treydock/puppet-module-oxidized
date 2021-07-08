@@ -3,7 +3,7 @@
 class oxidized::repo {
   if $facts['os']['family'] == 'RedHat' {
     if $facts['os']['name'] == 'RedHat' {
-      rhsm_repo { "rhel-server-rhscl-${facts['os']['release']['major']}-rpms":
+      rh_repo { "rhel-server-rhscl-${facts['os']['release']['major']}-rpms":
         ensure => 'present',
         before => Package[$::oxidized::ruby_dependencies],
       }
