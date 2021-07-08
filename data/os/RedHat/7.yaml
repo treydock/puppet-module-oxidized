@@ -1,0 +1,5 @@
+---
+oxidized::ruby_dependencies:
+  - rh-ruby23
+  - rh-ruby23-ruby-devel
+oxidized::service_start: '/bin/bash -c "/bin/scl enable rh-ruby23 -- oxidized"'
