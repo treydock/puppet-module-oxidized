@@ -11,7 +11,6 @@ oxidized::install_dependencies:
   - openssl-devel
   - libssh2-devel
   - gcc
-  - ruby-devel
   - libicu-devel
   - gcc-c++
 oxidized::service_start: '/usr/local/bin/oxidized'

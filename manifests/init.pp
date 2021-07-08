@@ -112,6 +112,12 @@ class oxidized (
     }
   }
 
+  if 'output' in $config {
+    $output_config = $config['output']
+  } else {
+    $output_config = { 'file' => { 'directory' => "${user_home}/.config/oxidized/configs" } }
+  }
+
   if $devices_vars_map {
     $csv_map = $devices_map + $devices_vars_map
   } else {
@@ -140,6 +146,7 @@ class oxidized (
 
   $default_config = delete_undef_values({
     'source' => $default_source_config,
+    'output' => $output_config,
     'rest'   => $rest_config,
     'log'    => $log,
   })

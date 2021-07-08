@@ -2,8 +2,14 @@
 # @api private
 class oxidized::install {
 
-  ensure_packages($::oxidized::ruby_dependencies, { 'before' => 'Package[oxidized]' })
-  ensure_packages($::oxidized::install_dependencies, { 'before' => 'Package[oxidized]' })
+  ensure_packages($oxidized::ruby_dependencies)
+  $oxidized::ruby_dependencies.each |$package| {
+    Package[$package] -> Package['oxidized']
+  }
+  ensure_packages($oxidized::install_dependencies)
+  $oxidized::install_dependencies.each |$package| {
+    Package[$package] -> Package['oxidized']
+  }
 
   if $facts.dig('os', 'family') == 'RedHat' {
     if versioncmp($facts['os']['release']['major'], '8') >= 0 {
