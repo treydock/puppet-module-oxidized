@@ -130,15 +130,27 @@
 37
 38
 39
-40</pre>
+40
+41
+42
+43
+44
+45
+46</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/install.pp', line 3</span>
 
 class oxidized::install {
 
-  ensure_packages($::oxidized::ruby_dependencies, { &#39;before&#39; =&gt; &#39;Package[oxidized]&#39; })
-  ensure_packages($::oxidized::install_dependencies, { &#39;before&#39; =&gt; &#39;Package[oxidized]&#39; })
+  ensure_packages($oxidized::ruby_dependencies)
+  $oxidized::ruby_dependencies.each |$package| {
+    Package[$package] -&gt; Package[&#39;oxidized&#39;]
+  }
+  ensure_packages($oxidized::install_dependencies)
+  $oxidized::install_dependencies.each |$package| {
+    Package[$package] -&gt; Package[&#39;oxidized&#39;]
+  }
 
   if $facts.dig(&#39;os&#39;, &#39;family&#39;) == &#39;RedHat&#39; {
     if versioncmp($facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;8&#39;) &gt;= 0 {

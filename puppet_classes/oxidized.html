@@ -666,7 +666,14 @@ when <code>with_web</code> is <code>true</code></p>
 164
 165
 166
-167</pre>
+167
+168
+169
+170
+171
+172
+173
+174</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 60</span>
@@ -726,6 +733,12 @@ class oxidized (
     }
   }
 
+  if &#39;output&#39; in $config {
+    $output_config = $config[&#39;output&#39;]
+  } else {
+    $output_config = { &#39;file&#39; =&gt; { &#39;directory&#39; =&gt; &quot;${user_home}/.config/oxidized/configs&quot; } }
+  }
+
   if $devices_vars_map {
     $csv_map = $devices_map + $devices_vars_map
   } else {
@@ -754,6 +767,7 @@ class oxidized (
 
   $default_config = delete_undef_values({
     &#39;source&#39; =&gt; $default_source_config,
+    &#39;output&#39; =&gt; $output_config,
     &#39;rest&#39;   =&gt; $rest_config,
     &#39;log&#39;    =&gt; $log,
   })
