@@ -6,15 +6,15 @@
 <title>
   Puppet Class: oxidized::install
   
-    &mdash; Documentation by YARD 0.9.20
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_classes::oxidized::install";
   relpath = '../';
 </script>
@@ -85,6 +85,7 @@
 <div class="tags">
   
 
+
 </div><div class="method_details_list">
   <table class="source_code">
     <tr>
@@ -129,9 +130,7 @@
 37
 38
 39
-40
-41
-42</pre>
+40</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/install.pp', line 3</span>
@@ -142,36 +141,34 @@ class oxidized::install {
   ensure_packages($::oxidized::install_dependencies, { &#39;before&#39; =&gt; &#39;Package[oxidized]&#39; })
 
   if $facts.dig(&#39;os&#39;, &#39;family&#39;) == &#39;RedHat&#39; {
-    $provider = &#39;scl_gem&#39;
-    file { &#39;/usr/local/bin/scl_gem&#39;:
-      ensure =&gt; &#39;file&#39;,
-      owner  =&gt; &#39;root&#39;,
-      group  =&gt; &#39;root&#39;,
-      mode   =&gt; &#39;0755&#39;,
-      source =&gt; &#39;puppet:///modules/oxidized/scl_gem&#39;,
-      before =&gt; Package[&#39;oxidized&#39;],
+    if versioncmp($facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;8&#39;) &gt;= 0 {
+      $provider = &#39;system_gem&#39;
+    }
+    else {
+      $provider = &#39;scl_gem&#39;
+      file { &#39;/usr/local/bin/scl_gem&#39;:
+        ensure =&gt; &#39;file&#39;,
+        owner  =&gt; &#39;root&#39;,
+        group  =&gt; &#39;root&#39;,
+        mode   =&gt; &#39;0755&#39;,
+        source =&gt; &#39;puppet:///modules/oxidized/scl_gem&#39;,
+        before =&gt; Package[&#39;oxidized&#39;],
+      }
     }
   } else {
     $provider = &#39;system_gem&#39;
   }
 
-  # Only necessary until released: https://github.com/ytti/oxidized/pull/2050
-  package { &#39;rugged&#39;:
-    ensure   =&gt; &#39;0.28.4.1&#39;,
-    provider =&gt; $provider,
-    before   =&gt; Package[&#39;oxidized&#39;],
-    require  =&gt; Package[$oxidized::ruby_dependencies + $oxidized::install_dependencies],
-  }
   package { &#39;oxidized&#39;:
-    ensure   =&gt; &#39;installed&#39;,
+    ensure   =&gt; $oxidized::package_ensure,
     provider =&gt; $provider,
   }
   -&gt; package { &#39;oxidized-script&#39;:
-    ensure   =&gt; &#39;installed&#39;,
+    ensure   =&gt; $oxidized::script_package_ensure,
     provider =&gt; $provider,
   }
   package { &#39;oxidized-web&#39;:
-    ensure   =&gt; $::oxidized::web_package_ensure,
+    ensure   =&gt; $oxidized::_web_package_ensure,
     provider =&gt; $provider,
     require  =&gt; Package[&#39;oxidized&#39;],
   }

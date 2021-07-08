@@ -6,15 +6,15 @@
 <title>
   Puppet Class: oxidized
   
-    &mdash; Documentation by YARD 0.9.20
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_classes::oxidized";
   relpath = '../';
 </script>
@@ -162,6 +162,61 @@
         &mdash;
         <div class='inline'>
 <p>Sets if the oxidized web should be installed and configured</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_ensure</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;installed&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Ensure value for main oxidized package</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>script_package_ensure</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;installed&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Ensure value for oxidized-script package</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>web_package_ensure</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Ensure value for oxidized web package Defaults to <code>installed</code>
+when <code>with_web</code> is <code>true</code></p>
 </div>
       
     </li>
@@ -496,6 +551,7 @@
 </ul>
 
 
+
 </div><div class="method_details_list">
   <table class="source_code">
     <tr>
@@ -503,13 +559,6 @@
         <pre class="lines">
 
 
-53
-54
-55
-56
-57
-58
-59
 60
 61
 62
@@ -603,16 +652,33 @@
 150
 151
 152
-153</pre>
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 53</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 60</span>
 
 class oxidized (
   Boolean $manage_repo = true,
   Array $ruby_dependencies = [],
   Array $install_dependencies = [],
   Boolean $with_web = false,
+  String $package_ensure = &#39;installed&#39;,
+  String $script_package_ensure = &#39;installed&#39;,
+  Optional[String] $web_package_ensure = undef,
   String $user = &#39;oxidized&#39;,
   String $user_group = &#39;oxidized&#39;,
   Optional[Integer] $user_uid = undef,
@@ -634,7 +700,11 @@ class oxidized (
 ) {
 
   if $facts.dig(&#39;os&#39;, &#39;family&#39;) == &#39;RedHat&#39; {
-    $bootstrap_command = &#39;scl enable rh-ruby23 -- oxidized&#39;
+    if versioncmp($facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;8&#39;) &gt;= 0 {
+      $bootstrap_command = &#39;oxidized&#39;
+    } else {
+      $bootstrap_command = &#39;scl enable rh-ruby23 -- oxidized&#39;
+    }
   } else {
     $bootstrap_command = &#39;oxidized&#39;
   }
@@ -663,10 +733,10 @@ class oxidized (
   }
 
   if $with_web {
-    $web_package_ensure = &#39;installed&#39;
+    $_web_package_ensure = pick($web_package_ensure, &#39;installed&#39;)
     $rest_config = &#39;127.0.0.1:8888&#39;
   } else {
-    $web_package_ensure = &#39;absent&#39;
+    $_web_package_ensure = &#39;absent&#39;
     $rest_config = false
   }
 

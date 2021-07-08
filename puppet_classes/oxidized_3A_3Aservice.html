@@ -6,15 +6,15 @@
 <title>
   Puppet Class: oxidized::service
   
-    &mdash; Documentation by YARD 0.9.20
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_classes::oxidized::service";
   relpath = '../';
 </script>
@@ -85,6 +85,7 @@
 <div class="tags">
   
 
+
 </div><div class="method_details_list">
   <table class="source_code">
     <tr>
@@ -107,10 +108,7 @@
 15
 16
 17
-18
-19
-20
-21</pre>
+18</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/service.pp', line 3</span>
@@ -118,13 +116,10 @@
 class oxidized::service {
   assert_private()
 
-  if $facts[&#39;service_provider&#39;] == &#39;systemd&#39; {
-    ::systemd::unit_file { &#39;oxidized.service&#39;:
-      ensure  =&gt; $::oxidized::service_file_ensure,
-      content =&gt; template(&#39;oxidized/oxidized.service.erb&#39;),
-      notify  =&gt; Service[&#39;oxidized&#39;],
-    }
-    Exec[&#39;systemctl-daemon-reload&#39;] -&gt; Service[&#39;oxidized&#39;]
+  ::systemd::unit_file { &#39;oxidized.service&#39;:
+    ensure  =&gt; $::oxidized::service_file_ensure,
+    content =&gt; template(&#39;oxidized/oxidized.service.erb&#39;),
+    notify  =&gt; Service[&#39;oxidized&#39;],
   }
 
   service { &#39;oxidized&#39;:
