@@ -1,4 +1,4 @@
 #!/bin/bash
 
-source scl_source enable rh-ruby23
+source scl_source enable rh-ruby26
 gem "$@"
