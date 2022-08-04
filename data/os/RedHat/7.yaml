@@ -1,6 +1,11 @@
 ---
+lookup_options:
+  oxidized::install_dependencies:
+    merge: unique
 oxidized::ruby_dependencies:
   - rh-ruby27
   - rh-ruby27-ruby-devel
   - rh-ruby27-rubygem-rake
+oxidized::install_dependencies:
+  - cmake3
 oxidized::service_start: '/bin/bash -c "/bin/scl enable rh-ruby23 -- oxidized"'

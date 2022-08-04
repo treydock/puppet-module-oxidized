@@ -47,6 +47,10 @@ describe 'oxidized' do
         let(:params) { { source_ensure: 'foobar' } }
 
         it { is_expected.to compile }
+        if os_facts[:os]['release']['major'].to_s == '7'
+          it { is_expected.to contain_package('cmake3') }
+          it { is_expected.to contain_package('make') }
+        end
       end
     end
   end
