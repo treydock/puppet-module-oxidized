@@ -4,6 +4,7 @@ oxidized::ruby_dependencies:
   - ruby-devel
   - rubygem-rake
 oxidized::install_dependencies:
+  - git
   - redhat-rpm-config
   - make
   - cmake
