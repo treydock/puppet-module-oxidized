@@ -30,11 +30,43 @@ class oxidized::install {
     $provider = 'system_gem'
   }
 
-  package { 'oxidized':
-    ensure   => $oxidized::package_ensure,
-    provider => $provider,
+  if $oxidized::source_ensure {
+    vcsrepo { '/usr/local/src/oxidized':
+      ensure   => 'present',
+      revision => $oxidized::source_ensure,
+      source   => $oxidized::source_repo,
+      provider => 'git',
+    }
+    if $provider == 'scl_gem' {
+      $install_cmd = 'scl enable rh-ruby23 -- rake install'
+      $uninstall_cmd = 'scl enable rh-ruby23 -- gem uninstall oxidized -a --force -x'
+      $onlyif_cmd  = 'scl enable rh-ruby23 -- gem list | grep "oxidized "'
+    } else {
+      $install_cmd = 'rake install'
+      $uninstall_cmd = 'gem uninstall oxidized -a --force'
+      $onlyif_cmd = 'gem list | grep "oxidized "'
+    }
+    exec { 'remove oxidized gem':
+      path    => '/usr/sbin:/sbin:/usr/bin:/bin',
+      command => $uninstall_cmd,
+      onlyif  => $onlyif_cmd,
+      before  => Exec['install oxidized gem'],
+    }
+    exec { 'install oxidized gem':
+      path        => '/usr/sbin:/sbin:/usr/bin:/bin',
+      command     => $install_cmd,
+      refreshonly => true,
+      subscribe   => Vcsrepo['/usr/local/src/oxidized'],
+    }
+  } else {
+    package { 'oxidized':
+      ensure   => $oxidized::package_ensure,
+      provider => $provider,
+      before   => Package['oxidized-script'],
+    }
   }
-  -> package { 'oxidized-script':
+
+  package { 'oxidized-script':
     ensure   => $oxidized::script_package_ensure,
     provider => $provider,
   }

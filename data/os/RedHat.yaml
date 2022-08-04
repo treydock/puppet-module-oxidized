@@ -2,6 +2,7 @@
 oxidized::ruby_dependencies:
   - ruby
   - ruby-devel
+  - rubygem-rake
 oxidized::install_dependencies:
   - redhat-rpm-config
   - make

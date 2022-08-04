@@ -18,6 +18,11 @@
 # @param web_package_ensure
 #   Ensure value for oxidized web package
 #   Defaults to `installed` when `with_web` is `true`
+# @param source_ensure
+#   Install Oxidized from source.
+#   Set this value to git commit or tag to install
+# @param source_repo
+#   The git repo to install source from
 # @param user
 #   Oxidize user
 # @param user_group
@@ -65,6 +70,8 @@ class oxidized (
   String $package_ensure = 'installed',
   String $script_package_ensure = 'installed',
   Optional[String] $web_package_ensure = undef,
+  Optional[String] $source_ensure = undef,
+  String $source_repo = 'https://github.com/ytti/oxidized.git',
   String $user = 'oxidized',
   String $user_group = 'oxidized',
   Optional[Integer] $user_uid = undef,
