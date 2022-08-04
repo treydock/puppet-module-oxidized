@@ -1,6 +1,6 @@
 ---
 oxidized::ruby_dependencies:
-  - rh-ruby23
-  - rh-ruby23-ruby-devel
-  - rh-ruby23-rubygem-rake
+  - rh-ruby27
+  - rh-ruby27-ruby-devel
+  - rh-ruby27-rubygem-rake
 oxidized::service_start: '/bin/bash -c "/bin/scl enable rh-ruby23 -- oxidized"'

@@ -23,6 +23,8 @@
 #   Set this value to git commit or tag to install
 # @param source_repo
 #   The git repo to install source from
+# @param src_dir
+#   Directory to put Oxidized source
 # @param user
 #   Oxidize user
 # @param user_group
@@ -72,6 +74,7 @@ class oxidized (
   Optional[String] $web_package_ensure = undef,
   Optional[String] $source_ensure = undef,
   String $source_repo = 'https://github.com/ytti/oxidized.git',
+  Stdlib::Absolutepath $src_dir = '/usr/local/src/oxidized',
   String $user = 'oxidized',
   String $user_group = 'oxidized',
   Optional[Integer] $user_uid = undef,

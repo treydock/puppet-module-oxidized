@@ -35,11 +35,11 @@ describe 'oxidized class:' do
       apply_manifest(pp, catch_changes: true)
     end
 
-    if fact('os.family') == 'RedHat' && fact('os.release.major') == '7'
-      version_cmd = 'scl enable rh-ruby23 -- oxidized --version'
-    else
-      version_cmd = 'oxidized --version'
-    end
+    version_cmd = if fact('os.family') == 'RedHat' && fact('os.release.major') == '7'
+                    'scl enable rh-ruby27 -- oxidized --version'
+                  else
+                    'oxidized --version'
+                  end
     describe command(version_cmd) do
       its(:stdout) { is_expected.to match(%r{d5e516e9}) }
     end
