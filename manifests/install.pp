@@ -77,6 +77,7 @@ class oxidized::install {
     }
     exec { 'install oxidized gem':
       path        => '/usr/sbin:/sbin:/usr/bin:/bin',
+      cwd         => $oxidized::src_dir,
       command     => $install_cmd,
       refreshonly => true,
       subscribe   => Vcsrepo['/usr/local/src/oxidized'],
