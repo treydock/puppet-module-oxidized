@@ -42,6 +42,12 @@ describe 'oxidized' do
         it { is_expected.to compile }
         it { is_expected.to contain_oxidized__model('ftos') }
       end
+
+      context 'when installing from source' do
+        let(:params) { { source_ensure: 'foobar' } }
+
+        it { is_expected.to compile }
+      end
     end
   end
 end

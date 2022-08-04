@@ -4,11 +4,19 @@ class oxidized::install {
 
   ensure_packages($oxidized::ruby_dependencies)
   $oxidized::ruby_dependencies.each |$package| {
-    Package[$package] -> Package['oxidized']
+    if $oxidized::source_ensure {
+      Package[$package] -> Vcsrepo[$oxidized::src_dir]
+    } else {
+      Package[$package] -> Package['oxidized']
+    }
   }
   ensure_packages($oxidized::install_dependencies)
   $oxidized::install_dependencies.each |$package| {
-    Package[$package] -> Package['oxidized']
+    if $oxidized::source_ensure {
+      Package[$package] -> Vcsrepo[$oxidized::src_dir]
+    } else {
+      Package[$package] -> Package['oxidized']
+    }
   }
 
   if $facts.dig('os', 'family') == 'RedHat' {
@@ -23,7 +31,9 @@ class oxidized::install {
         group  => 'root',
         mode   => '0755',
         source => 'puppet:///modules/oxidized/scl_gem',
-        before => Package['oxidized'],
+      }
+      if ! $oxidized::source_ensure {
+        File['/usr/local/bin/scl_gem'] -> Package['oxidized']
       }
     }
   } else {
@@ -75,7 +85,10 @@ class oxidized::install {
     package { 'oxidized':
       ensure   => $oxidized::package_ensure,
       provider => $provider,
-      before   => Package['oxidized-script'],
+      before   => [
+        Package['oxidized-script'],
+        Package['oxidized-web'],
+      ],
     }
   }
 
@@ -86,6 +99,5 @@ class oxidized::install {
   package { 'oxidized-web':
     ensure   => $oxidized::_web_package_ensure,
     provider => $provider,
-    require  => Package['oxidized'],
   }
 }
