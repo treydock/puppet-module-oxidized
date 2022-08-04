@@ -8,6 +8,8 @@ fixtures:
       repo: https://github.com/puppetlabs/puppetlabs-stdlib.git
     yumrepo_core:
       repo: https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
+    vcsrepo:
+      repo: https://github.com/puppetlabs/puppetlabs-vcsrepo.git
     rhsm:
       repo: https://github.com/voxpupuli/puppet-rhsm.git
     epel:

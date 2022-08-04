@@ -13,6 +13,10 @@
       "version_requirement": ">= 4.15.0 <8.0.0"
     },
     {
+      "name": "puppetlabs/vcsrepo",
+      "version_requirement": ">= 4.0.0 <6.0.0"
+    },
+    {
       "name": "puppetlabs/yumrepo_core",
       "version_requirement": ">= 1.0.0 <2.0.0"
     },

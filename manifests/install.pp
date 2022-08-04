@@ -31,18 +31,21 @@ class oxidized::install {
   }
 
   if $oxidized::source_ensure {
-    vcsrepo { '/usr/local/src/oxidized':
+    $src_dir = '/usr/local/src/oxidized'
+    vcsrepo { $src_dir:
       ensure   => 'present',
       revision => $oxidized::source_ensure,
       source   => $oxidized::source_repo,
       provider => 'git',
     }
     if $provider == 'scl_gem' {
-      $install_cmd = 'scl enable rh-ruby23 -- rake install'
+      $install_cmd = 'scl enable rh-ruby23 -- rake install:local'
+      $dep_cmd = 'scl enable rh-ruby23 -- gem install -g'
       $uninstall_cmd = 'scl enable rh-ruby23 -- gem uninstall oxidized -a --force -x'
       $onlyif_cmd  = 'scl enable rh-ruby23 -- gem list | grep "oxidized "'
     } else {
-      $install_cmd = 'rake install'
+      $install_cmd = 'rake install:local'
+      $dep_cmd = 'gem install -g'
       $uninstall_cmd = 'gem uninstall oxidized -a --force'
       $onlyif_cmd = 'gem list | grep "oxidized "'
     }
@@ -50,7 +53,18 @@ class oxidized::install {
       path    => '/usr/sbin:/sbin:/usr/bin:/bin',
       command => $uninstall_cmd,
       onlyif  => $onlyif_cmd,
-      before  => Exec['install oxidized gem'],
+      before  => [
+        Exec['install oxidized dependencies'],
+        Exec['install oxidized gem'],
+      ],
+    }
+    exec { 'install oxidized dependencies':
+      path        => '/usr/sbin:/sbin:/usr/bin:/bin',
+      cwd         => $src_dir,
+      command     => $dep_cmd,
+      refreshonly => true,
+      subscribe   => Vcsrepo['/usr/local/src/oxidized'],
+      before      => Exec['install oxidized gem']
     }
     exec { 'install oxidized gem':
       path        => '/usr/sbin:/sbin:/usr/bin:/bin',
