@@ -48,21 +48,26 @@ class oxidized::install {
       provider => 'git',
     }
     if $provider == 'scl_gem' {
-      $install_cmd = 'scl enable rh-ruby27 -- rake install:local'
+      $build_cmd = 'scl enable rh-ruby27 -- rake build'
+      $install_cmd = 'scl enable rh-ruby27 -- gem install --local pkg/oxidized*.gem'
       $dep_cmd = 'scl enable rh-ruby27 -- gem install -g'
       $uninstall_cmd = 'scl enable rh-ruby27 -- gem uninstall oxidized -a --force -x'
       $onlyif_cmd  = 'scl enable rh-ruby27 -- gem list | grep "oxidized "'
     } else {
+      $build_cmd = undef
       $install_cmd = 'rake install:local'
       $dep_cmd = 'gem install -g'
       $uninstall_cmd = 'gem uninstall oxidized -a --force'
       $onlyif_cmd = 'gem list | grep "oxidized "'
     }
     exec { 'remove oxidized gem':
-      path    => '/usr/sbin:/sbin:/usr/bin:/bin',
-      command => $uninstall_cmd,
-      onlyif  => $onlyif_cmd,
-      before  => [
+      path        => '/usr/sbin:/sbin:/usr/bin:/bin',
+      command     => $uninstall_cmd,
+      refreshonly => true,
+      onlyif      => $onlyif_cmd,
+      logoutput   => true,
+      subscribe   => Vcsrepo[$oxidized::src_dir],
+      before      => [
         Exec['install oxidized dependencies'],
         Exec['install oxidized gem'],
       ],
@@ -72,15 +77,33 @@ class oxidized::install {
       cwd         => $oxidized::src_dir,
       command     => $dep_cmd,
       refreshonly => true,
-      subscribe   => Vcsrepo['/usr/local/src/oxidized'],
-      before      => Exec['install oxidized gem']
+      logoutput   => true,
+      subscribe   => Vcsrepo[$oxidized::src_dir],
+      before      => Exec['install oxidized gem'],
+    }
+    if $build_cmd {
+      exec { 'build oxidized gem':
+        path        => '/usr/sbin:/sbin:/usr/bin:/bin',
+        cwd         => $oxidized::src_dir,
+        command     => $build_cmd,
+        refreshonly => true,
+        logoutput   => true,
+        subscribe   => Vcsrepo[$oxidized::src_dir],
+        require     => Exec['install oxidized dependencies'],
+        before      => Exec['install oxidized gem'],
+      }
     }
     exec { 'install oxidized gem':
       path        => '/usr/sbin:/sbin:/usr/bin:/bin',
       cwd         => $oxidized::src_dir,
       command     => $install_cmd,
       refreshonly => true,
-      subscribe   => Vcsrepo['/usr/local/src/oxidized'],
+      logoutput   => true,
+      subscribe   => Vcsrepo[$oxidized::src_dir],
+      before      => [
+        Package['oxidized-script'],
+        Package['oxidized-web'],
+      ]
     }
   } else {
     package { 'oxidized':
