@@ -89,7 +89,7 @@ class oxidized (
     if versioncmp($facts['os']['release']['major'], '8') >= 0 {
       $bootstrap_command = 'oxidized'
     } else {
-      $bootstrap_command = 'scl enable rh-ruby23 -- oxidized'
+      $bootstrap_command = 'scl enable rh-ruby27 -- oxidized'
     }
   } else {
     $bootstrap_command = 'oxidized'
