@@ -25,8 +25,9 @@ class oxidized::install {
         before => Package['oxidized'],
       }
       alternatives { 'cmake':
-        path   => '/usr/bin/cmake3',
-        before => Package['oxidized'],
+        path    => '/usr/bin/cmake3',
+        require => Package['cmake3'],
+        before  => Package['oxidized'],
       }
     }
   } else {
