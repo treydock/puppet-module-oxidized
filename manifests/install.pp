@@ -14,8 +14,7 @@ class oxidized::install {
   if $facts.dig('os', 'family') == 'RedHat' {
     if versioncmp($facts['os']['release']['major'], '8') >= 0 {
       $provider = 'system_gem'
-    }
-    else {
+    } else {
       $provider = 'scl_gem'
       file { '/usr/local/bin/scl_gem':
         ensure => 'file',
@@ -23,6 +22,10 @@ class oxidized::install {
         group  => 'root',
         mode   => '0755',
         source => 'puppet:///modules/oxidized/scl_gem',
+        before => Package['oxidized'],
+      }
+      alternatives { 'cmake':
+        path   => '/usr/bin/cmake3',
         before => Package['oxidized'],
       }
     }
