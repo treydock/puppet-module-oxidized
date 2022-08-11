@@ -42,6 +42,16 @@ describe 'oxidized' do
         it { is_expected.to compile }
         it { is_expected.to contain_oxidized__model('ftos') }
       end
+
+      context 'when installing from source' do
+        let(:params) { { source_ensure: 'foobar' } }
+
+        it { is_expected.to compile }
+        if os_facts[:os]['release']['major'].to_s == '7'
+          it { is_expected.to contain_package('cmake3') }
+          it { is_expected.to contain_package('make') }
+        end
+      end
     end
   end
 end

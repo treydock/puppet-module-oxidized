@@ -3,6 +3,7 @@ oxidized::ruby_dependencies:
   - ruby
   - ruby-dev
 oxidized::install_dependencies:
+  - git
   - libsqlite3-dev
   - libssl-dev
   - pkg-config
