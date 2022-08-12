@@ -13,6 +13,8 @@ fixtures:
     epel:
       repo: https://github.com/voxpupuli/puppet-epel.git
     systemd:
-      repo: https://github.com/camptocamp/puppet-systemd.git
+      repo: https://github.com/voxpupuli/puppet-systemd.git
+    alternatives:
+      repo: https://github.com/voxpupuli/puppet-alternatives.git
   symlinks:
     oxidized: "#{source_dir}"

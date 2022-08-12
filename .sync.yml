@@ -2,9 +2,9 @@
 .github/workflows/ci.yaml:
   acceptance_matrix:
     set:
-      - centos-7
-      - centos-8
-      - debian-9
+      - el7
+      - el8
+      - ---el9
       - debian-10
       - ubuntu-1804
       - ubuntu-2004
@@ -15,11 +15,11 @@
   delete: true
 appveyor.yml:
   delete: true
-spec/acceptance/nodesets/centos-8.yml:
+spec/acceptance/nodesets/el8.yml:
   update: true
-spec/acceptance/nodesets/debian-8.yml:
+spec/acceptance/nodesets/el9.yml:
   delete: true
-spec/acceptance/nodesets/ubuntu-1404.yml:
+spec/acceptance/nodesets/debian-9.yml:
   delete: true
-spec/acceptance/nodesets/ubuntu-1604.yml:
+spec/acceptance/nodesets/debian-11.yml:
   delete: true

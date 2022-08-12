@@ -5,7 +5,6 @@ oxidized::ruby_dependencies:
 oxidized::install_dependencies:
   - redhat-rpm-config
   - make
-  - cmake
   - which
   - sqlite-devel
   - openssl-devel
