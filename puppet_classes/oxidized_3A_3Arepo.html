@@ -6,7 +6,7 @@
 <title>
   Puppet Class: oxidized::repo
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -112,27 +112,29 @@
 19
 20
 21
-22</pre>
+22
+23</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/repo.pp', line 3</span>
 
 class oxidized::repo {
-  if $facts[&#39;os&#39;][&#39;family&#39;] == &#39;RedHat&#39; and versioncmp($facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;8&#39;) &gt;= 0 {
+  if $facts[&#39;os&#39;][&#39;family&#39;] == &#39;RedHat&#39; {
     include epel
     $oxidized::install_dependencies.each |$package| {
       Yumrepo[&#39;epel&#39;] -&gt; Package[$package]
     }
-  } elsif $facts[&#39;os&#39;][&#39;family&#39;] == &#39;RedHat&#39; {
-    if $facts[&#39;os&#39;][&#39;name&#39;] == &#39;RedHat&#39; {
-      rh_repo { &quot;rhel-server-rhscl-${facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;]}-rpms&quot;:
-        ensure =&gt; &#39;present&#39;,
-        before =&gt; Package[$::oxidized::ruby_dependencies],
-      }
-    } else {
-      package { &#39;centos-release-scl&#39;:
-        ensure =&gt; &#39;installed&#39;,
-        before =&gt; Package[$::oxidized::ruby_dependencies],
+    if versioncmp($facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;7&#39;) == 0 {
+      if $facts[&#39;os&#39;][&#39;name&#39;] == &#39;RedHat&#39; {
+        rh_repo { &quot;rhel-server-rhscl-${facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;]}-rpms&quot;:
+          ensure =&gt; &#39;present&#39;,
+          before =&gt; Package[$::oxidized::ruby_dependencies],
+        }
+      } else {
+        package { &#39;centos-release-scl&#39;:
+          ensure =&gt; &#39;installed&#39;,
+          before =&gt; Package[$::oxidized::ruby_dependencies],
+        }
       }
     }
   }

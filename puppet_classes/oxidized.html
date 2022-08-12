@@ -6,7 +6,7 @@
 <title>
   Puppet Class: oxidized
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -710,7 +710,7 @@ class oxidized (
     if versioncmp($facts[&#39;os&#39;][&#39;release&#39;][&#39;major&#39;], &#39;8&#39;) &gt;= 0 {
       $bootstrap_command = &#39;oxidized&#39;
     } else {
-      $bootstrap_command = &#39;scl enable rh-ruby23 -- oxidized&#39;
+      $bootstrap_command = &#39;scl enable rh-ruby27 -- oxidized&#39;
     }
   } else {
     $bootstrap_command = &#39;oxidized&#39;
