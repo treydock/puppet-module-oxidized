@@ -75,7 +75,7 @@ class oxidized (
   Stdlib::FileMode $config_mode = '0600',
   Enum['csv'] $source_type = 'csv',
   Array[Hash] $devices = [],
-  Hash[String, Integer] $devices_map = {'name' => 0, 'model' => 1},
+  Hash[String, Integer] $devices_map = { 'name' => 0, 'model' => 1 },
   Optional[Hash[String, Integer]] $devices_vars_map = undef,
   Boolean $with_service = false,
   String $service_start = '/usr/local/bin/oxidized',
@@ -84,27 +84,18 @@ class oxidized (
   Stdlib::FileMode $log_mode = '0644',
   Hash $models = {},
 ) {
-
-  if $facts.dig('os', 'family') == 'RedHat' {
-    if versioncmp($facts['os']['release']['major'], '8') >= 0 {
-      $bootstrap_command = 'oxidized'
-    } else {
-      $bootstrap_command = 'scl enable rh-ruby27 -- oxidized'
-    }
-  } else {
-    $bootstrap_command = 'oxidized'
-  }
+  $bootstrap_command = 'oxidized'
 
   if $source_type == 'csv' {
     $router_db = "${user_home}/.config/oxidized/router.db"
     $default_source_config = {
       'default' => 'csv',
       'csv' => delete_undef_values({
-        'file'  => $router_db,
-        'delimiter' => ':',
-        'map' => $devices_map,
-        'vars_map' => $devices_vars_map,
-      })
+          'file'  => $router_db,
+          'delimiter' => ':',
+          'map' => $devices_map,
+          'vars_map' => $devices_vars_map,
+      }),
     }
   } else {
     $default_source_config = {
@@ -145,10 +136,10 @@ class oxidized (
   }
 
   $default_config = delete_undef_values({
-    'source' => $default_source_config,
-    'output' => $output_config,
-    'rest'   => $rest_config,
-    'log'    => $log,
+      'source' => $default_source_config,
+      'output' => $output_config,
+      'rest'   => $rest_config,
+      'log'    => $log,
   })
   $_config = $default_config + $config
 
@@ -168,7 +159,6 @@ class oxidized (
   }
 
   $models.each |$name, $model| {
-    ::oxidized::model { $name: * => $model }
+    oxidized::model { $name: * => $model }
   }
-
 }
