@@ -37,6 +37,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+          cache-version: 2
           bundler: '2.1.0'
       - name: Validate
         run: bundle exec rake check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint
@@ -70,6 +71,7 @@ jobs:
         run: |
             set -x
             sudo apt-get remove mysql-server --purge
+            sudo apt-get update
             sudo apt-get install apparmor-profiles
             sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
       - uses: actions/checkout@v2
@@ -78,6 +80,7 @@ jobs:
         with:
           ruby-version: '2.7'
           bundler-cache: true
+          cache-version: 2
           bundler: '2.1.0'
       - name: Run tests
         run: bundle exec rake beaker
