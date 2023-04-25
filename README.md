@@ -20,11 +20,7 @@ This module will manage [oxidized](https://github.com/ytti/oxidized)
 
 ### What oxidized affects
 
-This module will install the oxidize gems and manage the oxidize configs. The gems are installed into SCL Ruby for RedHat based systems.
-
-### Setup Requirements
-
-This module has a soft dependency on [puppet/rhsm](https://forge.puppet.com/modules/puppet/rhsm) for Red Hat 7 systems in order to enable the SCL repository.
+This module will install the oxidize gems and manage the oxidize configs.
 
 ## Usage
 

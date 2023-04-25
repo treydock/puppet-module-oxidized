@@ -4,6 +4,7 @@ oxidized::ruby_dependencies:
   - ruby-devel
 oxidized::install_dependencies:
   - redhat-rpm-config
+  - cmake
   - make
   - which
   - sqlite-devel
