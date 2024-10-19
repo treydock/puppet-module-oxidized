@@ -1,6 +1,0 @@
----
-lookup_options:
-  oxidized::install_dependencies:
-    merge: unique
-oxidized::install_dependencies:
-  - cmake

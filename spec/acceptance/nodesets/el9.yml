@@ -1,20 +1,22 @@
 HOSTS:
-  centos-7:
+  el9:
     roles:
       - agent
-    platform: el-7-x86_64
+    platform: el-9-x86_64
     hypervisor: docker
-    image: centos:7
+    image: rockylinux:9
     docker_preserve_image: true
     docker_cmd:
       - '/usr/sbin/init'
     docker_image_commands:
-      - 'yum install -y wget which cronie iproute initscripts'
+      - 'dnf install -y dnf-utils'
+      - 'dnf config-manager --set-enabled crb'
+      - 'dnf install -y wget which cronie iproute initscripts langpacks-en glibc-all-langpacks glibc-langpack-en cpio'
     docker_env:
       - LANG=en_US.UTF-8
       - LANGUAGE=en_US.UTF-8
       - LC_ALL=en_US.UTF-8
-    docker_container_name: 'oxidized-el7'
+    docker_container_name: 'oxidized-el9'
 CONFIG:
   log_level: debug
   type: foss

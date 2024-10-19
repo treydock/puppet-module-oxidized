@@ -3,18 +3,18 @@
 
 ---
 fixtures:
-  repositories:
+  forge_modules:
     stdlib:
-      repo: https://github.com/puppetlabs/puppetlabs-stdlib.git
+      repo: puppetlabs/stdlib
     yumrepo_core:
-      repo: https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
+      repo: puppetlabs/yumrepo_core
     rhsm:
-      repo: https://github.com/voxpupuli/puppet-rhsm.git
+      repo: puppet/rhsm
     epel:
-      repo: https://github.com/voxpupuli/puppet-epel.git
+      repo: puppet/epel
     systemd:
-      repo: https://github.com/voxpupuli/puppet-systemd.git
+      repo: puppet/systemd
     alternatives:
-      repo: https://github.com/voxpupuli/puppet-alternatives.git
+      repo: puppet/alternatives
   symlinks:
     oxidized: "#{source_dir}"

@@ -1,0 +1,14 @@
+---
+oxidized::ruby_dependencies:
+  - ruby3.0
+  - ruby3.0-dev
+oxidized::install_dependencies:
+  - libsqlite3-dev
+  - libssl-dev
+  - pkg-config
+  - cmake
+  - libssh2-1-dev
+  - libicu-dev
+  - zlib1g-dev
+  - g++
+oxidized::service_start: '/usr/local/bin/oxidized'
