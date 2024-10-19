@@ -6,8 +6,8 @@
       - el8
       - el9
     puppet:
-      - puppet6
       - puppet7
+      - puppet8
 .gitlab-ci.yml:
   delete: true
 appveyor.yml:
@@ -20,9 +20,13 @@ spec/acceptance/nodesets/debian-10.yml:
   delete: true
 spec/acceptance/nodesets/debian-11.yml:
   delete: true
+spec/acceptance/nodesets/debian-12.yml:
+  delete: true
 spec/acceptance/nodesets/ubuntu-1804.yml:
   delete: true
 spec/acceptance/nodesets/ubuntu-2004.yml:
   delete: true
 spec/acceptance/nodesets/ubuntu-2204.yml:
+  delete: true
+spec/acceptance/nodesets/ubuntu-2404.yml:
   delete: true

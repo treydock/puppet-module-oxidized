@@ -29,7 +29,7 @@ class oxidized::config {
     replace   => false,
   }
 
-  $config_yaml = to_yaml($oxidized::_config)
+  $config_yaml = stdlib::to_yaml($oxidized::_config)
   file { "${oxidized::user_home}/.config/oxidized/config":
     ensure    => 'file',
     owner     => $oxidized::user,

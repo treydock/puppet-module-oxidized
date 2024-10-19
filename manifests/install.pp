@@ -1,11 +1,11 @@
 # @summary Manage oxidized packages
 # @api private
 class oxidized::install {
-  ensure_packages($oxidized::ruby_dependencies)
+  stdlib::ensure_packages($oxidized::ruby_dependencies)
   $oxidized::ruby_dependencies.each |$package| {
     Package[$package] -> Package['oxidized']
   }
-  ensure_packages($oxidized::install_dependencies)
+  stdlib::ensure_packages($oxidized::install_dependencies)
   $oxidized::install_dependencies.each |$package| {
     Package[$package] -> Package['oxidized']
   }
