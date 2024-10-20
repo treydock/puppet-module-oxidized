@@ -18,6 +18,8 @@
 # @param web_package_ensure
 #   Ensure value for oxidized web package
 #   Defaults to `installed` when `with_web` is `true`
+# @param rugged_version
+#   Version of rugged to install with SSH support
 # @param user
 #   Oxidize user
 # @param user_group
@@ -65,6 +67,7 @@ class oxidized (
   String $package_ensure = 'installed',
   String $script_package_ensure = 'installed',
   Optional[String] $web_package_ensure = undef,
+  String $rugged_version = '1.6.3',
   String $user = 'oxidized',
   String $user_group = 'oxidized',
   Optional[Integer] $user_uid = undef,
