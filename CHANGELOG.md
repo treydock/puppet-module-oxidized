@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v3.0.0](https://github.com/treydock/puppet-module-oxidized/tree/v3.0.0) (2024-10-20)
+
+[Full Changelog](https://github.com/treydock/puppet-module-oxidized/compare/v2.0.0...v3.0.0)
+
+### Changed
+
+- Major updates - SEE DESCRIPTION [\#29](https://github.com/treydock/puppet-module-oxidized/pull/29) ([treydock](https://github.com/treydock))
+
+### Added
+
+- Numerous improvements to management [\#30](https://github.com/treydock/puppet-module-oxidized/pull/30) ([treydock](https://github.com/treydock))
+
 ## [v2.0.0](https://github.com/treydock/puppet-module-oxidized/tree/v2.0.0) (2022-08-12)
 
 [Full Changelog](https://github.com/treydock/puppet-module-oxidized/compare/v1.1.0...v2.0.0)

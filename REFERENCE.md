@@ -20,7 +20,7 @@
 
 ### Defined types
 
-* [`oxidized::model`](#oxidizedmodel): Manage oxidized models
+* [`oxidized::model`](#oxidized--model): Manage oxidized models
 
 ## Classes
 
@@ -40,41 +40,42 @@ include oxidized
 
 The following parameters are available in the `oxidized` class:
 
-* [`manage_repo`](#manage_repo)
-* [`ruby_dependencies`](#ruby_dependencies)
-* [`install_dependencies`](#install_dependencies)
-* [`with_web`](#with_web)
-* [`package_ensure`](#package_ensure)
-* [`script_package_ensure`](#script_package_ensure)
-* [`web_package_ensure`](#web_package_ensure)
-* [`user`](#user)
-* [`user_group`](#user_group)
-* [`user_uid`](#user_uid)
-* [`user_group_gid`](#user_group_gid)
-* [`user_home`](#user_home)
-* [`user_home_mode`](#user_home_mode)
-* [`config`](#config)
-* [`config_mode`](#config_mode)
-* [`source_type`](#source_type)
-* [`devices`](#devices)
-* [`devices_map`](#devices_map)
-* [`devices_vars_map`](#devices_vars_map)
-* [`with_service`](#with_service)
-* [`service_start`](#service_start)
-* [`show_diff`](#show_diff)
-* [`log`](#log)
-* [`log_mode`](#log_mode)
-* [`models`](#models)
+* [`manage_repo`](#-oxidized--manage_repo)
+* [`ruby_dependencies`](#-oxidized--ruby_dependencies)
+* [`install_dependencies`](#-oxidized--install_dependencies)
+* [`with_web`](#-oxidized--with_web)
+* [`package_ensure`](#-oxidized--package_ensure)
+* [`script_package_ensure`](#-oxidized--script_package_ensure)
+* [`web_package_ensure`](#-oxidized--web_package_ensure)
+* [`rugged_version`](#-oxidized--rugged_version)
+* [`user`](#-oxidized--user)
+* [`user_group`](#-oxidized--user_group)
+* [`user_uid`](#-oxidized--user_uid)
+* [`user_group_gid`](#-oxidized--user_group_gid)
+* [`user_home`](#-oxidized--user_home)
+* [`user_home_mode`](#-oxidized--user_home_mode)
+* [`config`](#-oxidized--config)
+* [`config_mode`](#-oxidized--config_mode)
+* [`source_type`](#-oxidized--source_type)
+* [`devices`](#-oxidized--devices)
+* [`devices_map`](#-oxidized--devices_map)
+* [`devices_vars_map`](#-oxidized--devices_vars_map)
+* [`with_service`](#-oxidized--with_service)
+* [`service_start`](#-oxidized--service_start)
+* [`show_diff`](#-oxidized--show_diff)
+* [`log`](#-oxidized--log)
+* [`log_mode`](#-oxidized--log_mode)
+* [`models`](#-oxidized--models)
 
-##### <a name="manage_repo"></a>`manage_repo`
+##### <a name="-oxidized--manage_repo"></a>`manage_repo`
 
 Data type: `Boolean`
 
 Sets if repos needed for oxidize are managed.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="ruby_dependencies"></a>`ruby_dependencies`
+##### <a name="-oxidized--ruby_dependencies"></a>`ruby_dependencies`
 
 Data type: `Array`
 
@@ -82,7 +83,7 @@ Ruby dependencies
 
 Default value: `[]`
 
-##### <a name="install_dependencies"></a>`install_dependencies`
+##### <a name="-oxidized--install_dependencies"></a>`install_dependencies`
 
 Data type: `Array`
 
@@ -90,15 +91,15 @@ Additional install dependencies
 
 Default value: `[]`
 
-##### <a name="with_web"></a>`with_web`
+##### <a name="-oxidized--with_web"></a>`with_web`
 
 Data type: `Boolean`
 
 Sets if the oxidized web should be installed and configured
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="package_ensure"></a>`package_ensure`
+##### <a name="-oxidized--package_ensure"></a>`package_ensure`
 
 Data type: `String`
 
@@ -106,7 +107,7 @@ Ensure value for main oxidized package
 
 Default value: `'installed'`
 
-##### <a name="script_package_ensure"></a>`script_package_ensure`
+##### <a name="-oxidized--script_package_ensure"></a>`script_package_ensure`
 
 Data type: `String`
 
@@ -114,16 +115,24 @@ Ensure value for oxidized-script package
 
 Default value: `'installed'`
 
-##### <a name="web_package_ensure"></a>`web_package_ensure`
+##### <a name="-oxidized--web_package_ensure"></a>`web_package_ensure`
 
 Data type: `Optional[String]`
 
 Ensure value for oxidized web package
 Defaults to `installed` when `with_web` is `true`
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="user"></a>`user`
+##### <a name="-oxidized--rugged_version"></a>`rugged_version`
+
+Data type: `String`
+
+Version of rugged to install with SSH support
+
+Default value: `'1.6.3'`
+
+##### <a name="-oxidized--user"></a>`user`
 
 Data type: `String`
 
@@ -131,7 +140,7 @@ Oxidize user
 
 Default value: `'oxidized'`
 
-##### <a name="user_group"></a>`user_group`
+##### <a name="-oxidized--user_group"></a>`user_group`
 
 Data type: `String`
 
@@ -139,23 +148,23 @@ Oxidize user's group
 
 Default value: `'oxidized'`
 
-##### <a name="user_uid"></a>`user_uid`
+##### <a name="-oxidized--user_uid"></a>`user_uid`
 
 Data type: `Optional[Integer]`
 
 Oxidize user's UID
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="user_group_gid"></a>`user_group_gid`
+##### <a name="-oxidized--user_group_gid"></a>`user_group_gid`
 
 Data type: `Optional[Integer]`
 
 Oxidize user's group GID
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="user_home"></a>`user_home`
+##### <a name="-oxidized--user_home"></a>`user_home`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -163,7 +172,7 @@ Oxidize user's home directory path
 
 Default value: `'/home/oxidized'`
 
-##### <a name="user_home_mode"></a>`user_home_mode`
+##### <a name="-oxidized--user_home_mode"></a>`user_home_mode`
 
 Data type: `Stdlib::FileMode`
 
@@ -171,7 +180,7 @@ The permissions of oxidized user's home directory
 
 Default value: `'0700'`
 
-##### <a name="config"></a>`config`
+##### <a name="-oxidized--config"></a>`config`
 
 Data type: `Hash`
 
@@ -179,7 +188,7 @@ Oxidize config hash
 
 Default value: `{}`
 
-##### <a name="config_mode"></a>`config_mode`
+##### <a name="-oxidized--config_mode"></a>`config_mode`
 
 Data type: `Stdlib::FileMode`
 
@@ -187,7 +196,7 @@ Oxidized config file permission mode
 
 Default value: `'0600'`
 
-##### <a name="source_type"></a>`source_type`
+##### <a name="-oxidized--source_type"></a>`source_type`
 
 Data type: `Enum['csv']`
 
@@ -195,7 +204,7 @@ Sets type of source to be used
 
 Default value: `'csv'`
 
-##### <a name="devices"></a>`devices`
+##### <a name="-oxidized--devices"></a>`devices`
 
 Data type: `Array[Hash]`
 
@@ -204,33 +213,33 @@ Only used when `source_type` is `csv`
 
 Default value: `[]`
 
-##### <a name="devices_map"></a>`devices_map`
+##### <a name="-oxidized--devices_map"></a>`devices_map`
 
 Data type: `Hash[String, Integer]`
 
 Map of CSV fields for devices
 Only used when `source_type` is `csv`
 
-Default value: `{'name' => 0, 'model' => 1}`
+Default value: `{ 'name' => 0, 'model' => 1 }`
 
-##### <a name="devices_vars_map"></a>`devices_vars_map`
+##### <a name="-oxidized--devices_vars_map"></a>`devices_vars_map`
 
 Data type: `Optional[Hash[String, Integer]]`
 
 Set `vars_map` for device CSV configuration
 Only used when `source_type` is `csv`
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="with_service"></a>`with_service`
+##### <a name="-oxidized--with_service"></a>`with_service`
 
 Data type: `Boolean`
 
 Sets if the oxidized service should be installed and running
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="service_start"></a>`service_start`
+##### <a name="-oxidized--service_start"></a>`service_start`
 
 Data type: `String`
 
@@ -238,23 +247,23 @@ The command to use to start oxidized service
 
 Default value: `'/usr/local/bin/oxidized'`
 
-##### <a name="show_diff"></a>`show_diff`
+##### <a name="-oxidized--show_diff"></a>`show_diff`
 
 Data type: `Boolean`
 
 Boolean that sets show_diff property for files
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="log"></a>`log`
+##### <a name="-oxidized--log"></a>`log`
 
 Data type: `Optional[String]`
 
 Path to oxidized log file
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="log_mode"></a>`log_mode`
+##### <a name="-oxidized--log_mode"></a>`log_mode`
 
 Data type: `Stdlib::FileMode`
 
@@ -262,7 +271,7 @@ The permissions of oxidized log file
 
 Default value: `'0644'`
 
-##### <a name="models"></a>`models`
+##### <a name="-oxidized--models"></a>`models`
 
 Data type: `Hash`
 
@@ -272,7 +281,7 @@ Default value: `{}`
 
 ## Defined types
 
-### <a name="oxidizedmodel"></a>`oxidized::model`
+### <a name="oxidized--model"></a>`oxidized::model`
 
 Manage oxidized models
 
@@ -280,9 +289,9 @@ Manage oxidized models
 
 The following parameters are available in the `oxidized::model` defined type:
 
-* [`source`](#source)
+* [`source`](#-oxidized--model--source)
 
-##### <a name="source"></a>`source`
+##### <a name="-oxidized--model--source"></a>`source`
 
 Data type: `String`
 
