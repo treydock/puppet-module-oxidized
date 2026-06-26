@@ -13,4 +13,5 @@ oxidized::install_dependencies:
   - gcc
   - libicu-devel
   - gcc-c++
+  - libyaml-devel
 oxidized::service_start: '/usr/local/bin/oxidized'
