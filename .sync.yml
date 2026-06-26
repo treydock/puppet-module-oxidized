@@ -2,17 +2,17 @@
 .github/workflows/ci.yaml:
   acceptance_matrix:
     set:
-      - ---el7
       - el8
       - el9
     puppet:
-      - puppet7
       - puppet8
 .gitlab-ci.yml:
   delete: true
 appveyor.yml:
   delete: true
 spec/acceptance/nodesets/el7.yml:
+  delete: true
+spec/acceptance/nodesets/el10.yml:
   delete: true
 spec/acceptance/nodesets/debian-9.yml:
   delete: true
@@ -29,4 +29,6 @@ spec/acceptance/nodesets/ubuntu-2004.yml:
 spec/acceptance/nodesets/ubuntu-2204.yml:
   delete: true
 spec/acceptance/nodesets/ubuntu-2404.yml:
+  delete: true
+spec/acceptance/nodesets/ubuntu-2604.yml:
   delete: true
