@@ -66,6 +66,7 @@ The following parameters are available in the `oxidized` class:
 * [`log`](#-oxidized--log)
 * [`log_mode`](#-oxidized--log_mode)
 * [`models`](#-oxidized--models)
+* [`model_dir_purge`](#-oxidized--model_dir_purge)
 
 ##### <a name="-oxidized--manage_repo"></a>`manage_repo`
 
@@ -279,6 +280,14 @@ Hash of models passed to oxidized::model
 
 Default value: `{}`
 
+##### <a name="-oxidized--model_dir_purge"></a>`model_dir_purge`
+
+Data type: `Boolean`
+
+Whether to purge unmanaged custom models
+
+Default value: `true`
+
 ## Defined types
 
 ### <a name="oxidized--model"></a>`oxidized::model`
@@ -290,10 +299,19 @@ Manage oxidized models
 The following parameters are available in the `oxidized::model` defined type:
 
 * [`source`](#-oxidized--model--source)
+* [`ensure`](#-oxidized--model--ensure)
 
 ##### <a name="-oxidized--model--source"></a>`source`
 
 Data type: `String`
 
 Source of model
+
+##### <a name="-oxidized--model--ensure"></a>`ensure`
+
+Data type: `Enum['present', 'absent']`
+
+Whether to add or remove the model
+
+Default value: `'present'`
 

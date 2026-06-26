@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v4.0.0](https://github.com/treydock/puppet-module-oxidized/tree/v4.0.0) (2026-06-26)
+
+[Full Changelog](https://github.com/treydock/puppet-module-oxidized/compare/v3.0.0...v4.0.0)
+
+### Changed
+
+- Drop Puppet 7 support [\#31](https://github.com/treydock/puppet-module-oxidized/pull/31) ([treydock](https://github.com/treydock))
+
+### Added
+
+- Support removing models [\#32](https://github.com/treydock/puppet-module-oxidized/pull/32) ([treydock](https://github.com/treydock))
+
 ## [v3.0.0](https://github.com/treydock/puppet-module-oxidized/tree/v3.0.0) (2024-10-20)
 
 [Full Changelog](https://github.com/treydock/puppet-module-oxidized/compare/v2.0.0...v3.0.0)
