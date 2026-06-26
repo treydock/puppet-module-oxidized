@@ -49,6 +49,7 @@ class oxidized::config {
     purge   => $oxidized::model_dir_purge,
     recurse => $oxidized::model_dir_purge,
     force   => $oxidized::model_dir_purge,
+    notify  => $oxidized::service_notify,
   }
 
   if $oxidized::source_type == 'csv' {

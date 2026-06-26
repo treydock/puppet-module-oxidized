@@ -30,6 +30,6 @@ define oxidized::model (
     mode      => '0644',
     source    => $source,
     show_diff => $oxidized::show_diff,
-    notify    => Service['oxidized'],
+    notify    => $oxidized::service_notify,
   }
 }
