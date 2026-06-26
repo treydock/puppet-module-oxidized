@@ -1,15 +1,16 @@
 #
 # @summary Manage oxidized models
 #
-# @param ensure
-#   Whether to add or remove the model
-#
 # @param source
 #   Source of model
 #
+# @param ensure
+#   Whether to add or remove the model
+#
+#
 define oxidized::model (
-  Enum['present', 'absent'] $ensure = 'present',
   String $source,
+  Enum['present', 'absent'] $ensure = 'present',
 ) {
   include oxidized
 
