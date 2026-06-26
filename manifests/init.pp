@@ -59,6 +59,8 @@
 #   The permissions of oxidized log file
 # @param models
 #   Hash of models passed to oxidized::model
+# @param model_dir_purge
+#   Whether to purge unmanaged custom models
 class oxidized (
   Boolean $manage_repo = true,
   Array $ruby_dependencies = [],
@@ -86,6 +88,7 @@ class oxidized (
   Optional[String] $log = undef,
   Stdlib::FileMode $log_mode = '0644',
   Hash $models = {},
+  Boolean $model_dir_purge = true,
 ) {
   $bootstrap_command = 'oxidized'
 

@@ -42,10 +42,13 @@ class oxidized::config {
   }
 
   file { "${oxidized::user_home}/.config/oxidized/model":
-    ensure => 'directory',
-    owner  => $oxidized::user,
-    group  => $oxidized::user_group,
-    mode   => '0755',
+    ensure  => 'directory',
+    owner   => $oxidized::user,
+    group   => $oxidized::user_group,
+    mode    => '0755',
+    purge   => $oxidized::model_dir_purge,
+    recurse => $oxidized::model_dir_purge,
+    force   => $oxidized::model_dir_purge,
   }
 
   if $oxidized::source_type == 'csv' {

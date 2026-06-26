@@ -1,19 +1,29 @@
 #
 # @summary Manage oxidized models
 #
-#
 # @param source
 #   Source of model
 #
+# @param ensure
+#   Whether to add or remove the model
+#
+#
 define oxidized::model (
   String $source,
+  Enum['present', 'absent'] $ensure = 'present',
 ) {
   include oxidized
+
+  if $ensure == 'absent' {
+    $file_ensure = 'absent'
+  } else {
+    $file_ensure = 'file'
+  }
 
   $path = "${oxidized::user_home}/.config/oxidized/model/${name}.rb"
 
   file { "model-${name}":
-    ensure    => 'file',
+    ensure    => $file_ensure,
     path      => $path,
     owner     => $oxidized::user,
     group     => $oxidized::user_group,
